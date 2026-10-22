@@ -113,8 +113,11 @@ const Capitol1 = {
       btn.innerHTML = `✓ Nòmina ingressada amb èxit! (+1.280,30 €)`;
       btn.style.background = "var(--ok)";
 
-      // Dispara l'efecte de monedes volant cap a la barra superior i el comptador rodant
+      // Dispara l'efecte de monedes volant cap a la barra superior, el banner emergent i el comptador rodant
       ChatEngine.notifyMoneyChange(1280.30, "Primer sou net d'estiu ingressat al compte!", btn);
+
+      // Dona 1,8 segons per gaudir del so, les monedes i veure pujar el moneder
+      await ChatEngine.wait(1800);
 
       await ChatEngine.say("nil", "UAAAAALAAA!! Mireu a dalt de tot de la pantalla: el moneder acaba de saltar de cop a més de 1.280 €!! Som rics!!");
       await ChatEngine.say("pau", "Quin gust fa veure el primer ingrés d'un sou al compte corrent! Jo gairebé em poso a saltar quan ho vaig viure.");

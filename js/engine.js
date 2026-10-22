@@ -198,9 +198,9 @@ const ChatEngine = {
       }
     }
 
-    // Efecte de badge flotant al moneder superior
+    // Efecte de badge flotant i gran banner d'impacte superior
     if (typeof window.triggerWalletBadge === "function") {
-      window.triggerWalletBadge(delta);
+      window.triggerWalletBadge(delta, label);
     }
 
     return chip;

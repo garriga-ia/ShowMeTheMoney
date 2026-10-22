@@ -51,6 +51,18 @@
       </div>
     </header>
 
+    <!-- GRAN BANNER D'IMPACTE MONETARI (VISIBLE DIRECTAMENT AL MÒBIL) -->
+    <div id="money-banner-overlay" class="money-banner-overlay hide" aria-live="assertive">
+      <div class="money-banner-content">
+        <span class="banner-icon" id="banner-money-icon">💰</span>
+        <div class="banner-text">
+          <div class="banner-amount" id="banner-money-amount">+1.280,30 €</div>
+          <div class="banner-label" id="banner-money-label">Primer sou net d'estiu ingressat!</div>
+          <div class="banner-balance">Nou saldo disponible: <b id="banner-money-balance">1.380,30 €</b> 🛡️</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ======================================================================
          VISTA 1: DASHBOARD / HUB DEL CURS
          ====================================================================== -->
@@ -392,21 +404,50 @@
         renderDashboard();
       });
 
-      // Funció global per fer bategar el badge flotant del moneder
-      window.triggerWalletBadge = function(delta) {
-        if (!walletFloatBadge || !statWalletPill) return;
+      // Funció global per fer bategar el badge del moneder i el gran banner d'impacte
+      window.triggerWalletBadge = function(delta, label) {
+        if (!statWalletPill) return;
         const isGain = delta > 0;
         const formatted = (isGain ? "+" : "") + delta.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
-        walletFloatBadge.textContent = formatted;
-        walletFloatBadge.className = `wallet-float-badge ${isGain ? "show-gain" : "show-loss"}`;
+        
+        // 1. Efecte a la píndola del moneder superior
+        if (walletFloatBadge) {
+          walletFloatBadge.textContent = formatted;
+          walletFloatBadge.className = `wallet-float-badge ${isGain ? "show-gain" : "show-loss"}`;
+        }
         statWalletPill.classList.remove("wallet-glow-gain", "wallet-glow-loss");
         void statWalletPill.offsetWidth;
         statWalletPill.classList.add(isGain ? "wallet-glow-gain" : "wallet-glow-loss");
 
-        setTimeout(() => {
-          walletFloatBadge.classList.remove("show-gain", "show-loss");
-          statWalletPill.classList.remove("wallet-glow-gain", "wallet-glow-loss");
-        }, 1800);
+        // 2. Gran banner visual emergent al centre-superior (ideal per a mòbil)
+        const overlay = document.getElementById("money-banner-overlay");
+        const bannerIcon = document.getElementById("banner-money-icon");
+        const bannerAmt = document.getElementById("banner-money-amount");
+        const bannerLabel = document.getElementById("banner-money-label");
+        const bannerBalance = document.getElementById("banner-money-balance");
+
+        if (overlay && bannerAmt) {
+          overlay.className = `money-banner-overlay ${isGain ? "gain" : "loss"}`;
+          if (bannerIcon) bannerIcon.textContent = isGain ? "💰" : "💸";
+          bannerAmt.textContent = formatted;
+          if (bannerLabel) bannerLabel.textContent = label || (isGain ? "Ingrés al teu compte" : "Despesa / pèrdua");
+          if (bannerBalance) {
+            const total = AppState.get().virtualSavings;
+            bannerBalance.textContent = total.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+          }
+
+          clearTimeout(window._moneyBannerTimer);
+          window._moneyBannerTimer = setTimeout(() => {
+            overlay.classList.add("hide");
+            if (walletFloatBadge) walletFloatBadge.classList.remove("show-gain", "show-loss");
+            statWalletPill.classList.remove("wallet-glow-gain", "wallet-glow-loss");
+          }, 3200);
+        } else {
+          setTimeout(() => {
+            if (walletFloatBadge) walletFloatBadge.classList.remove("show-gain", "show-loss");
+            statWalletPill.classList.remove("wallet-glow-gain", "wallet-glow-loss");
+          }, 2000);
+        }
       };
 
       // Funció global de vol de monedes cap a la barra superior
