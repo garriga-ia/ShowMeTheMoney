@@ -193,6 +193,39 @@ body {
   box-sizing: border-box;
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.nav-back-btn {
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.nav-back-btn:hover {
+  background: var(--card-hover);
+  border-color: var(--teal);
+}
+
+.nav-back-btn:active {
+  transform: scale(0.95);
+}
+
 .nav-brand {
   display: flex;
   align-items: center;
@@ -441,13 +474,141 @@ body {
   color: var(--head-ink);
 }
 
-/* ---------- Vistes (Dashboard vs Player) ---------- */
+/* ---------- Vistes (Welcome vs Dashboard vs Player) ---------- */
 .view {
   display: none;
 }
 
 .view.active {
   display: block;
+}
+
+/* ---------- Portada de Benvinguda (Welcome View) ---------- */
+.welcome-hero {
+  padding: 8px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.welcome-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--teal2);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+}
+
+.welcome-title {
+  font-size: calc(25px * var(--font-scale, 1));
+  font-weight: 900;
+  line-height: 1.22;
+  margin: 0;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+
+.welcome-lead {
+  font-size: calc(14.5px * var(--font-scale, 1));
+  color: var(--mut);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Caixa "Com funciona?" */
+.welcome-how-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.how-title {
+  font-size: calc(14px * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.how-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.how-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: calc(13px * var(--font-scale, 1));
+  line-height: 1.4;
+}
+
+.how-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--head-ink);
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  margin-top: 1px;
+}
+
+.how-step b {
+  display: block;
+  color: var(--ink);
+  font-size: calc(13.5px * var(--font-scale, 1));
+  margin-bottom: 2px;
+}
+
+.how-step span {
+  color: var(--mut);
+}
+
+.welcome-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-pulse {
+  box-shadow: 0 0 20px var(--gold2);
+  animation: gentlePulse 2.5s infinite ease-in-out;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--gold2); }
+  50% { transform: scale(1.02); box-shadow: 0 0 25px rgba(245, 200, 66, 0.4); }
+}
+
+.welcome-colla-preview {
+  margin-top: 8px;
+  padding: 14px;
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+}
+
+.colla-preview-label {
+  font-size: calc(12.5px * var(--font-scale, 1));
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
 }
 
 /* ---------- Dashboard del Curs ---------- */

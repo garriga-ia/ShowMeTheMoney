@@ -31,10 +31,15 @@
   <!-- BARRA GLOBAL SUPERIOR FIXADA (SEMPRE VISIBLE EN FER SCROLL) -->
   <header class="navbar">
     <div class="nav-container">
-      <button class="nav-brand" id="btn-home-brand" type="button">
-        <span class="nav-logo-badge">💸 ShowMeTheMoney</span>
-        <span class="nav-title">Finances Joves</span>
-      </button>
+      <div class="nav-left">
+        <button class="nav-brand" id="btn-home-brand" type="button" title="Inici">
+          <span class="nav-logo-badge">💸 ShowMeTheMoney</span>
+          <span class="nav-title">Finances Joves</span>
+        </button>
+        <button class="nav-back-btn hide" id="btn-nav-back" type="button" title="Tornar a l'índex de capítols">
+          ← Índex
+        </button>
+      </div>
 
       <div class="nav-right-cluster">
         <div class="stat-pill wallet" id="stat-wallet-pill" title="Coixí virtual estalviat">
@@ -66,9 +71,79 @@
 
   <div class="wrap">
     <!-- ======================================================================
+         VISTA 0: PORTADA / PRESENTACIÓ I INSTRUCCIONS
+         ====================================================================== -->
+    <main id="view-welcome" class="view active">
+      <div class="welcome-hero">
+        <span class="welcome-badge">🚀 Benvingut/da a ShowMeTheMoney</span>
+        <h1 class="welcome-title">Controla la teva pasta abans que ella et controli a tu</h1>
+        <p class="welcome-lead">
+          Una appweb interactiva pensada per a mòbil on prendràs decisions financeres reals amb la teva colla d'amics: el Nil, la Marta, el Pau i l'Aina.
+        </p>
+
+        <!-- Caixa d'instruccions de funcionament -->
+        <div class="welcome-how-box">
+          <div class="how-title">📱 Com funciona aquest curs?</div>
+          <div class="how-steps">
+            <div class="how-step">
+              <span class="how-num">1</span>
+              <div>
+                <b>Format Xat Interactiu:</b>
+                <span>Avança com si fos un grup de WhatsApp. Llegeixes converses, analitzes nòmines, contractes i situacions reals.</span>
+              </div>
+            </div>
+            <div class="how-step">
+              <span class="how-num">2</span>
+              <div>
+                <b>Pren decisions reals:</b>
+                <span>Acceptaràs hores extres en negre? Finançaràs el mòbil a terminis? Sortiràs si vas pelat? Tu tries cada pas.</span>
+              </div>
+            </div>
+            <div class="how-step">
+              <span class="how-num">3</span>
+              <div>
+                <b>Moneder virtual en directe:</b>
+                <span>Comprovaràs al capdamunt com puja o baixa el teu coixí segons si encertes o caus en paranys.</span>
+              </div>
+            </div>
+            <div class="how-step">
+              <span class="how-num">4</span>
+              <div>
+                <b>12 capítols àgils (8 min):</b>
+                <span>Des del primer sou d'estiu fins a la declaració de la Renda, inversió responsable i compartir pis.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botons d'acció per entrar -->
+        <div class="welcome-cta-group">
+          <button id="btn-enter-course" class="btn gold btn-pulse" type="button" style="font-size:15px; padding:14px 18px; font-weight:800; width:100%; justify-content:center;">
+            🚀 Començar el Curs (Veure Capítols) →
+          </button>
+          <button id="btn-open-rules-welcome" class="btn ghost" type="button" style="justify-content:center;">
+            📄 Veure les 12 Regles d'Or (Txec-list)
+          </button>
+        </div>
+
+        <!-- Mini preview de la colla -->
+        <div class="welcome-colla-preview">
+          <div class="colla-preview-label">👥 Aprendràs acompanyat de la colla:</div>
+          <div class="colla-avatars-row" id="colla-welcome-avatars"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ======================================================================
          VISTA 1: DASHBOARD / HUB DEL CURS
          ====================================================================== -->
-    <main id="view-dashboard" class="view active">
+    <main id="view-dashboard" class="view">
+      <div style="margin-bottom: 14px;">
+        <button id="btn-back-welcome" class="back-to-hub-btn" type="button">
+          ← Presentació i instruccions
+        </button>
+      </div>
+
       <div class="dash-header">
         <span class="dash-badge">Octubre 2026 · Edició Jove</span>
         <h1 class="dash-title">Aprèn a gestionar la pasta sense rotllos</h1>
@@ -358,13 +433,17 @@
   <!-- Controlador principal de la WebApp -->
   <script>
     (function initWebApp() {
+      const viewWelcome = document.getElementById("view-welcome");
       const viewDash = document.getElementById("view-dashboard");
       const viewPlayer = document.getElementById("view-player");
+      const btnHomeBrand = document.getElementById("btn-home-brand");
+      const btnNavBack = document.getElementById("btn-nav-back");
       const statWallet = document.getElementById("stat-wallet");
       const statWalletPill = document.getElementById("stat-wallet-pill");
       const walletFloatBadge = document.getElementById("wallet-float-badge");
       const blocksContainer = document.getElementById("course-blocks-container");
       const collaList = document.getElementById("colla-avatars-list");
+      const collaWelcomeList = document.getElementById("colla-welcome-avatars");
 
       let currentWalletVal = AppState.get().virtualSavings || 0;
       statWallet.textContent = currentWalletVal.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
@@ -532,15 +611,17 @@
         }
       };
 
-      // Render de la colla al footer del dashboard
+      // Render de la colla al footer del dashboard i a la portada de benvinguda
       function renderCollaAvatars() {
-        collaList.innerHTML = "";
+        if (collaList) collaList.innerHTML = "";
+        if (collaWelcomeList) collaWelcomeList.innerHTML = "";
         ["nil", "marc", "marta", "aina", "pau"].forEach(key => {
           const p = COLLA[key];
           const item = document.createElement("div");
           item.className = "colla-mini-pill";
           item.innerHTML = `${p.svg} <span><b>${p.name}</b> <span style="color:var(--mut)">(${p.role})</span></span>`;
-          collaList.appendChild(item);
+          if (collaList) collaList.appendChild(item);
+          if (collaWelcomeList) collaWelcomeList.appendChild(item.cloneNode(true));
         });
       }
       renderCollaAvatars();
@@ -621,13 +702,29 @@
       };
 
       function route() {
-        const hash = window.location.hash || "#dashboard";
+        const hash = window.location.hash || "#welcome";
         if (hash.startsWith("#chapter-")) {
           const id = Number(hash.replace("#chapter-", ""));
+          if (viewWelcome) viewWelcome.classList.remove("active");
+          viewDash.classList.remove("active");
+          viewPlayer.classList.add("active");
+          if (btnHomeBrand) btnHomeBrand.classList.add("hide");
+          if (btnNavBack) btnNavBack.classList.remove("hide");
           startChapterPlayer(id);
-        } else {
+        } else if (hash === "#dashboard") {
+          if (viewWelcome) viewWelcome.classList.remove("active");
           viewPlayer.classList.remove("active");
           viewDash.classList.add("active");
+          if (btnHomeBrand) btnHomeBrand.classList.remove("hide");
+          if (btnNavBack) btnNavBack.classList.add("hide");
+          window.scrollTo(0, 0);
+        } else {
+          // Ruta per defecte (#welcome)
+          if (viewWelcome) viewWelcome.classList.add("active");
+          viewDash.classList.remove("active");
+          viewPlayer.classList.remove("active");
+          if (btnHomeBrand) btnHomeBrand.classList.remove("hide");
+          if (btnNavBack) btnNavBack.classList.add("hide");
           window.scrollTo(0, 0);
         }
       }
@@ -635,8 +732,6 @@
       window.addEventListener("hashchange", route);
 
       function startChapterPlayer(chapterId) {
-        viewDash.classList.remove("active");
-        viewPlayer.classList.add("active");
         window.scrollTo(0, 0);
 
         const chap = CAPITOLS_DATA[chapterId];
@@ -686,13 +781,35 @@
         }
       }
 
-      // Controls del reproductor
+      // Controls del reproductor i navegació
+      const btnEnterCourse = document.getElementById("btn-enter-course");
+      if (btnEnterCourse) {
+        btnEnterCourse.onclick = () => {
+          window.location.hash = "#dashboard";
+        };
+      }
+
+      const btnBackWelcome = document.getElementById("btn-back-welcome");
+      if (btnBackWelcome) {
+        btnBackWelcome.onclick = () => {
+          window.location.hash = "#welcome";
+        };
+      }
+
+      if (btnNavBack) {
+        btnNavBack.onclick = () => {
+          window.location.hash = "#dashboard";
+        };
+      }
+
       document.getElementById("btn-back-hub-top").onclick = () => {
         window.location.hash = "#dashboard";
       };
-      document.getElementById("btn-home-brand").onclick = () => {
-        window.location.hash = "#dashboard";
-      };
+      if (btnHomeBrand) {
+        btnHomeBrand.onclick = () => {
+          window.location.hash = "#welcome";
+        };
+      }
 
       // Selectors de velocitat
       document.querySelectorAll(".speed-btn").forEach(btn => {
@@ -782,6 +899,7 @@
       // ======================================================================
       const modalChecklist = document.getElementById("modal-checklist");
       const btnOpenChecklist = document.getElementById("btn-open-checklist");
+      const btnOpenRulesWelcome = document.getElementById("btn-open-rules-welcome");
       const btnCloseChecklist = document.getElementById("btn-close-checklist");
       const btnPrintChecklist = document.getElementById("btn-print-checklist");
       const btnCopyChecklist = document.getElementById("btn-copy-checklist");
@@ -789,6 +907,13 @@
 
       if (btnOpenChecklist) {
         btnOpenChecklist.onclick = () => {
+          modalChecklist.classList.remove("hide");
+          if (typeof SoundFX !== "undefined") SoundFX.playClick();
+        };
+      }
+
+      if (btnOpenRulesWelcome) {
+        btnOpenRulesWelcome.onclick = () => {
           modalChecklist.classList.remove("hide");
           if (typeof SoundFX !== "undefined") SoundFX.playClick();
         };
