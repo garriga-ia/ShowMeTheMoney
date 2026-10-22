@@ -10,7 +10,7 @@ const Capitol1 = {
   // Càlculs 2026
   RATES: { cc: 4.70, atur_temp: 1.60, atur_fix: 1.55, fp: 0.10, mei: 0.15 },
   IRPF_MIN_TEMP: 2,
-  TOTAL: 2560.60, // 2 mesos d'estiu nets (1.280,30 x 2)
+  TOTAL: 1280.30, // Sou net d'un mes (1.280,30 €)
   HOURLY: 7.40,   // Sou net per hora a 40h/setmana
 
   EVENTS: [
@@ -41,7 +41,7 @@ const Capitol1 = {
   async step1() {
     ChatEngine.registerStep(1, "L'escena: 1.400 € al contracte");
 
-    await ChatEngine.say("me", "Nois!! M'han dit que sí a la feina d'estiu! Dos mesos, juliol i agost. Al contracte posa <b>1.400 € bruts al mes</b>.");
+    await ChatEngine.say("me", "Nois!! M'han dit que sí a la feina d'estiu! Al contracte posa <b>1.400 € bruts al mes</b>.");
     await ChatEngine.say("nil", "1.400 AL MES?? Bro, som rics. Ja tinc el mòbil nou al carretó d'Amazon.");
     await ChatEngine.say("marc", "Para el carro, nano. «Brut» no vol dir que t'ho ingressin tot. Del brut en surt una part abans d'arribar-te al compte bancari.");
     await ChatEngine.say("marta", "I recorda: després de l'estiu et tornes a quedar sense ingressos fins que tornis a treballar. Alguna cosa s'ha de guardar.");
@@ -100,7 +100,7 @@ const Capitol1 = {
         <tr class="sub"><td>IRPF (retenció mínima 2 %)</td><td class="neg">− 28,00 €</td></tr>
         <tr class="tot"><td>El que t'ingressen (Net)</td><td>1.280,30 €</td></tr>
       </table>
-      <p class="note">En 2 mesos complets cobraràs exactament <b>2.560,60 € nets</b>. A més, l'empresa paga cap a un 30 % extra per tu a la Seguretat Social que no es resta del teu rebut.</p>
+      <p class="note">A cada nòmina mensual cobraràs exactament <b>1.280,30 € nets</b>. A més, l'empresa paga cap a un 30 % extra per tu a la Seguretat Social que no es resta del teu rebut.</p>
 
       <div style="margin-top:14px; padding:12px; border-radius:12px; background:#0d241a; border:1.5px solid var(--teal); text-align:center;">
         <span style="font-size:12px; color:var(--teal); font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">🏦 Transferència bancària llesta per cobrar</span>
@@ -131,7 +131,7 @@ const Capitol1 = {
       await ChatEngine.say("nil", "Ei, espera... però <b>on han anat a parar aquests 120 € de diferència del brut?</b> Algú se'ls ha cruspit?");
       await ChatEngine.say("nil", "Però sabeu què? L'any passat la meva germana es va trencar el braç fent skate i a l'hospital ens van atendre, li van posar guix i van fer radiografies sense pagar ni un cèntim. Això surt d'aquestes cotitzacions!");
       await ChatEngine.say("marc", "Exacte, Nil! La Seguretat Social cobreix atur, baixes mèdiques i pensions. L'IRPF és un avançament d'impostos per a serveis públics.");
-      await ChatEngine.say("marta", "I si fas la Renda a la primavera, et tornen gairebé tots els 56 € d'IRPF. Si no la fas, els perds.");
+      await ChatEngine.say("marta", "I si fas la Renda a la primavera, et tornen gairebé tots els 28 € d'IRPF d'aquesta nòmina. Si no la fas, els perds.");
 
       ChatEngine.embedMaxim("Brut ≠ Net. 1.400 € al contracte són 1.280,30 € nets a la teva butxaca.");
 
@@ -139,7 +139,7 @@ const Capitol1 = {
 
       const nextBtn = document.createElement("button");
       nextBtn.className = "btn";
-      nextBtn.textContent = "Pas 2: Repartir els diners en 3 bosses →";
+      nextBtn.textContent = "Pas 2: Repartir la nòmina en 3 bosses →";
       nextBtn.onclick = () => {
         nextBtn.remove();
         this.step2();
@@ -152,15 +152,15 @@ const Capitol1 = {
   async step2() {
     ChatEngine.registerStep(2, "Tria què fas: les 3 bosses");
 
-    await ChatEngine.say("marta", "Abans de comprar cap mòbil, fem números. Durant el curs et cobreixen el menjar a casa, però aquests diners són els únics que tindràs per a sortides i per a imprevistos.");
+    await ChatEngine.say("marta", "Abans de comprar cap mòbil, fem números amb aquesta nòmina. Durant el curs et cobreixen el menjar a casa, però aquests diners són els que tindràs per a sortides i per a imprevistos.");
     await ChatEngine.say("marc", "Regla de les tres bosses: <b>Coixí</b> (imprevistos), <b>Gastar</b> (gaudir ara) i <b>Metes</b> (estalvi futur).");
 
     const allocBox = document.createElement("div");
     allocBox.className = "allocator-box";
     allocBox.innerHTML = `
       <div class="allocator-header">
-        <span style="font-weight:700; font-size:14px;">Total net de l'estiu</span>
-        <span class="allocator-total">2.560,60 €</span>
+        <span style="font-weight:700; font-size:14px;">Total de la teva nòmina neta</span>
+        <span class="allocator-total">1.280,30 €</span>
       </div>
       <p class="note">Fes servir els presets o ajusta les 3 bosses amb els botons fins a sumar el 100%:</p>
       <div class="presets-row">
@@ -178,7 +178,7 @@ const Capitol1 = {
       <div class="pocket-row">
         <div class="pocket-info">
           <div class="pocket-label"><span class="pocket-dot" style="background:var(--teal)"></span> 1. Coixí d'emergència</div>
-          <div class="pocket-amount" id="amt-c">1.280,30 €</div>
+          <div class="pocket-amount" id="amt-c">640,15 €</div>
         </div>
         <div class="pocket-ctrls">
           <button class="pocket-btn" id="btn-c-minus">−</button>
@@ -190,7 +190,7 @@ const Capitol1 = {
       <div class="pocket-row">
         <div class="pocket-info">
           <div class="pocket-label"><span class="pocket-dot" style="background:#f09a63"></span> 2. Gastar ara (sense culpa)</div>
-          <div class="pocket-amount" id="amt-s">768,18 €</div>
+          <div class="pocket-amount" id="amt-s">384,09 €</div>
         </div>
         <div class="pocket-ctrls">
           <button class="pocket-btn" id="btn-s-minus">−</button>
@@ -202,7 +202,7 @@ const Capitol1 = {
       <div class="pocket-row">
         <div class="pocket-info">
           <div class="pocket-label"><span class="pocket-dot" style="background:#8fb4dd"></span> 3. Metes i estalvi futur</div>
-          <div class="pocket-amount" id="amt-g">512,12 €</div>
+          <div class="pocket-amount" id="amt-g">256,06 €</div>
         </div>
         <div class="pocket-ctrls">
           <button class="pocket-btn" id="btn-g-minus">−</button>
@@ -445,7 +445,7 @@ const Capitol1 = {
     recapCard.querySelector("#btn-finish-cap1").onclick = () => {
       recapCard.querySelector("#btn-finish-cap1").disabled = true;
       const cushionSaved = (this.TOTAL * this.state.cushionPct) / 100;
-      AppState.completeChapter(1, cushionSaved, this.state.archetype);
+      AppState.completeChapter(1, 0, this.state.archetype);
 
       ChatEngine.celebrate(
         "Capítol 1 completat amb èxit!",
