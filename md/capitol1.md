@@ -114,7 +114,7 @@ const Capitol1 = {
       btn.style.background = "var(--ok)";
 
       // Dispara l'efecte de monedes volant cap a la barra superior, el banner emergent i el comptador rodant
-      ChatEngine.notifyMoneyChange(1280.30, "Primer sou net d'estiu ingressat al compte!", btn);
+      ChatEngine.notifyMoneyChange(1280.30, "Primer sou net d'estiu ingressat al compte!", btn, "c1_salary");
 
       // Dona 1,8 segons per gaudir del so, les monedes i veure pujar el moneder
       await ChatEngine.wait(1800);
@@ -344,7 +344,7 @@ const Capitol1 = {
     if (isSuccess) {
       await ChatEngine.say("marc", "Molt ben jugat! Tenir el coixí cobert et permet gaudir del que gastes sense angoixar-te quan arriba un problema.");
     } else {
-      ChatEngine.notifyMoneyChange(-140, "Imprevist del febrer: pantalla de mòbil trencada!");
+      ChatEngine.notifyMoneyChange(-140, "Imprevist del febrer: pantalla de mòbil trencada!", null, "c1_screen");
       await ChatEngine.say("nil", "Uf... Això del mòbil trencat no hi comptava. Se'm queda la cartera a zero al febrer i no puc ni anar a berenar amb vosaltres!");
       await ChatEngine.say("marc", "A mi em va passar el mateix el meu primer any: per comprar-me una cadira 'gaming' de 250 € em vaig quedar sense pasta per a la casa rural d'amics... Em vaig passar el cap de setmana sol a casa mirant les vostres 'stories' amb una ràbia que no us podeu imaginar.");
       await ChatEngine.say("marta", "Tots hem après a base d'entrebussar-nos. El coixí no és per presumir, és per no quedar-te penjat.");

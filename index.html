@@ -28,9 +28,9 @@
 </head>
 <body>
 
-  <div class="wrap">
-    <!-- BARRA GLOBAL SUPERIOR -->
-    <header class="navbar">
+  <!-- BARRA GLOBAL SUPERIOR FIXADA (SEMPRE VISIBLE EN FER SCROLL) -->
+  <header class="navbar">
+    <div class="nav-container">
       <button class="nav-brand" id="btn-home-brand" type="button">
         <span class="nav-logo-badge">💸 ShowMeTheMoney</span>
         <span class="nav-title">Finances Joves</span>
@@ -45,24 +45,26 @@
 
         <div class="nav-actions">
           <button id="btn-toggle-sound" class="nav-icon-btn" type="button" title="Activar/Desactivar so" aria-label="So">🔊</button>
-          <button id="btn-toggle-font" class="nav-icon-btn" type="button" title="Mida de lletra (Normal / Gran / Petita)" aria-label="Mida de text">Aa</button>
+          <button id="btn-toggle-font" class="nav-icon-btn" type="button" title="Mida de lletra" aria-label="Mida de text">Aa</button>
           <button id="btn-toggle-theme" class="nav-icon-btn" type="button" title="Canviar mode fosc/clar" aria-label="Mode fosc o clar">🌓</button>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- GRAN BANNER D'IMPACTE MONETARI (VISIBLE DIRECTAMENT AL MÒBIL) -->
-    <div id="money-banner-overlay" class="money-banner-overlay hide" aria-live="assertive">
-      <div class="money-banner-content">
-        <span class="banner-icon" id="banner-money-icon">💰</span>
-        <div class="banner-text">
-          <div class="banner-amount" id="banner-money-amount">+1.280,30 €</div>
-          <div class="banner-label" id="banner-money-label">Primer sou net d'estiu ingressat!</div>
-          <div class="banner-balance">Nou saldo disponible: <b id="banner-money-balance">1.380,30 €</b> 🛡️</div>
-        </div>
+  <!-- GRAN BANNER D'IMPACTE MONETARI (VISIBLE DIRECTAMENT AL MÒBIL) -->
+  <div id="money-banner-overlay" class="money-banner-overlay hide" aria-live="assertive">
+    <div class="money-banner-content">
+      <span class="banner-icon" id="banner-money-icon">💰</span>
+      <div class="banner-text">
+        <div class="banner-amount" id="banner-money-amount">+1.280,30 €</div>
+        <div class="banner-label" id="banner-money-label">Primer sou net d'estiu ingressat!</div>
+        <div class="banner-balance">Nou saldo disponible: <b id="banner-money-balance">1.380,30 €</b> 🛡️</div>
       </div>
     </div>
+  </div>
 
+  <div class="wrap">
     <!-- ======================================================================
          VISTA 1: DASHBOARD / HUB DEL CURS
          ====================================================================== -->

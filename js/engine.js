@@ -163,13 +163,42 @@ const ChatEngine = {
     }
   },
 
-  notifyMoneyChange(delta, label, sourceElement) {
+  notifyMoneyChange(delta, label, sourceElement, txId) {
     this.triggerHaptic();
     const isGain = delta > 0;
     const formatted = (isGain ? "+" : "") + delta.toFixed(2) + " €";
-    
+    const key = txId || (label ? label.substring(0, 32) : null);
+
+    // Si la transacció ja s'ha aplicat en aquesta partida, evitem duplicar diners
+    const alreadyApplied = key && typeof AppState !== "undefined" && AppState.isTransactionApplied(key);
+
+    if (alreadyApplied) {
+      const tail = this.ensureTail();
+      const chip = document.createElement("div");
+      chip.className = `money-impact-chip ${isGain ? "gain" : "loss"}`;
+      chip.style.opacity = "0.85";
+      chip.innerHTML = `
+        <span class="impact-icon">ℹ️</span>
+        <div class="impact-info">
+          <b class="impact-amount">${formatted} (Ja registrat)</b>
+          <span class="impact-label">${label || "Aquest moviment ja s'havia ingressat en la teva partida"}</span>
+        </div>
+      `;
+      this.streamEl.insertBefore(chip, tail);
+      this.scrollTo(chip);
+
+      if (typeof window.triggerWalletBadge === "function") {
+        window.triggerWalletBadge(0, `Ja registrat: saldo mantingut`);
+      }
+      return chip;
+    }
+
     if (typeof AppState !== "undefined") {
-      AppState.adjustSavings(delta);
+      if (key) {
+        AppState.recordTransaction(key, delta);
+      } else {
+        AppState.adjustSavings(delta);
+      }
     }
 
     const tail = this.ensureTail();

@@ -11,6 +11,7 @@ const DEFAULT_STATE = {
   virtualSavings: 100, // Saldo inicial per poder experimentar guanys i pèrdues reals
   profileArchetype: null, // "nil", "marta", "marc"
   decisions: {},
+  appliedTransactions: [], // IDs de transaccions que només s'apliquen una vegada
   settings: {
     speed: 1, // 1, 2 o 99 (skip)
     sound: true,
@@ -31,6 +32,16 @@ const AppState = {
       if (!this.data.settings || !this.data.settings.fontSizeCustomized) {
         if (!this.data.settings) this.data.settings = Object.assign({}, DEFAULT_STATE.settings);
         this.data.settings.fontSize = "lg";
+      }
+      if (!this.data.appliedTransactions) {
+        this.data.appliedTransactions = [];
+      }
+      // Si el saldo s'havia inflat per repetir el capítol 1 múltiples vegades en proves anteriors
+      if (this.data.completedChapters.length <= 1 && this.data.virtualSavings > 1400) {
+        this.data.virtualSavings = 1380.30;
+        if (!this.data.appliedTransactions.includes("c1_salary")) {
+          this.data.appliedTransactions.push("c1_salary");
+        }
       }
     } catch (e) {
       console.warn("No s'ha pogut llegir localStorage, fent servir memòria local", e);
@@ -95,6 +106,19 @@ const AppState = {
       this.save();
     }
     return this.data.settings.fontSize;
+  },
+
+  isTransactionApplied(txId) {
+    if (!this.data.appliedTransactions) this.data.appliedTransactions = [];
+    return this.data.appliedTransactions.includes(txId);
+  },
+
+  recordTransaction(txId, delta) {
+    if (!this.data.appliedTransactions) this.data.appliedTransactions = [];
+    if (!this.data.appliedTransactions.includes(txId)) {
+      this.data.appliedTransactions.push(txId);
+    }
+    this.adjustSavings(delta);
   },
 
   adjustSavings(delta) {
