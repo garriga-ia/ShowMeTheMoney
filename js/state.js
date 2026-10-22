@@ -15,7 +15,7 @@ const DEFAULT_STATE = {
     speed: 1, // 1, 2 o 99 (skip)
     sound: true,
     theme: "dark", // "dark" o "light"
-    fontSize: "md" // "sm", "md", "lg"
+    fontSize: "lg" // "sm", "md", "lg" (per defecte "lg" per a màxima llegibilitat en mòbil)
   }
 };
 
@@ -27,6 +27,11 @@ const AppState = {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       this.data = saved ? Object.assign({}, DEFAULT_STATE, JSON.parse(saved)) : Object.assign({}, DEFAULT_STATE);
+      // Per defecte sempre començar amb la mida gran 'lg' si l'usuari no l'ha canviat expressament
+      if (!this.data.settings || !this.data.settings.fontSizeCustomized) {
+        if (!this.data.settings) this.data.settings = Object.assign({}, DEFAULT_STATE.settings);
+        this.data.settings.fontSize = "lg";
+      }
     } catch (e) {
       console.warn("No s'ha pogut llegir localStorage, fent servir memòria local", e);
       this.data = Object.assign({}, DEFAULT_STATE);
@@ -86,6 +91,7 @@ const AppState = {
   setFontSize(size) {
     if (["sm", "md", "lg"].includes(size)) {
       this.data.settings.fontSize = size;
+      this.data.settings.fontSizeCustomized = true;
       this.save();
     }
     return this.data.settings.fontSize;

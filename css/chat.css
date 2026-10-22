@@ -7,10 +7,14 @@
   background: var(--chatbg);
   border: 1px solid var(--line);
   border-radius: var(--r);
-  padding: 14px 12px;
+  padding: 12px 10px;
   min-height: 400px;
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .chat-date-divider {
@@ -154,17 +158,20 @@
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--r);
-  padding: 16px;
-  margin: 14px 0 14px 46px;
+  padding: 14px 12px;
+  margin: 14px 0 14px 44px;
   animation: pop 0.25s ease-out;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  max-width: calc(100% - 46px);
+  max-width: calc(100% - 44px);
+  box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
   .chat-embed-card, .maxim {
-    margin-left: 10px;
-    max-width: calc(100% - 10px);
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    padding: 12px 10px;
+    box-sizing: border-box;
   }
 }
 

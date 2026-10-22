@@ -44,8 +44,8 @@
 }
 
 /* Modificadors d'accessibilitat: mida de lletra */
-html.font-sm, body.font-sm { --font-scale: 0.85; }
-html.font-md, body.font-md { --font-scale: 1; }
+html.font-sm, body.font-sm { --font-scale: 0.9; }
+html.font-md, body.font-md { --font-scale: 1.05; }
 html.font-lg, body.font-lg { --font-scale: 1.25; }
 
 /* Escalat global aplicat a elements de text concrets */
@@ -142,6 +142,11 @@ html, body {
   font-size: calc(16px * var(--font-scale, 1));
   line-height: 1.45;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-text-size-adjust: 100%;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -150,12 +155,15 @@ body {
 }
 
 .wrap {
-  max-width: 580px;
+  width: 100%;
+  max-width: 540px;
   margin: 0 auto;
-  padding: 0 14px 48px;
+  padding: 0 12px 60px;
+  box-sizing: border-box;
+  overflow-x: clip;
 }
 
-/* ---------- Barra de navegació superior global ---------- */
+/* ---------- Barra de navegació superior global (Mobile-First) ---------- */
 .navbar {
   position: sticky;
   top: 0;
@@ -164,66 +172,82 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
-  padding: 10px 14px;
-  margin: 0 -14px 14px;
+  padding: 8px 12px;
+  margin: 0 -12px 14px;
+  width: calc(100% + 24px);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 6px;
 }
 
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   background: none;
   border: none;
   color: inherit;
   font: inherit;
   padding: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .nav-logo-badge {
   background: var(--teal);
   color: var(--head-ink);
   font-weight: 800;
-  font-size: 13px;
+  font-size: 12px;
   border-radius: 8px;
-  padding: 4px 8px;
+  padding: 4px 7px;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nav-title {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--ink);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .nav-title {
+    display: none; /* Amagar en mòbil estret per no trencar ni desplaçar la capçalera */
+  }
 }
 
 .nav-right-cluster {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .nav-stats {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .stat-pill {
   background: var(--bub);
   border: 1px solid var(--line);
   border-radius: 20px;
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: 4px 8px;
+  font-size: 11.5px;
   font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
+  white-space: nowrap;
 }
 
 .stat-pill.wallet {
@@ -233,23 +257,24 @@ body {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .nav-icon-btn {
   background: var(--card);
   border: 1px solid var(--line);
   color: var(--ink);
-  width: 32px;
-  height: 32px;
+  width: 29px;
+  height: 29px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   padding: 0;
+  flex-shrink: 0;
   transition: background 0.15s, border-color 0.15s, transform 0.1s;
 }
 
@@ -266,17 +291,19 @@ body {
   opacity: 0.6;
 }
 
-/* ---------- Header del capítol en curs ---------- */
+/* ---------- Header del capítol en curs (Mobile-First) ---------- */
 .chapter-bar {
   background: var(--teal);
   color: var(--head-ink);
-  padding: 10px 14px;
-  border-radius: 14px;
-  margin-bottom: 14px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .chapter-bar .title-box {
@@ -286,7 +313,7 @@ body {
 
 .chapter-bar .t1 {
   font-weight: 800;
-  font-size: 15px;
+  font-size: calc(14px * var(--font-scale, 1));
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
@@ -294,26 +321,30 @@ body {
 }
 
 .chapter-bar .t2 {
-  font-size: 12px;
+  font-size: calc(11px * var(--font-scale, 1));
   opacity: 0.85;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Selector de passos interactiu */
 .prog-steps {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 .prog-step-btn {
   background: rgba(7, 19, 14, 0.25);
   border: none;
   color: var(--head-ink);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 800;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -321,6 +352,7 @@ body {
   justify-content: center;
   transition: all 0.2s ease;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .prog-step-btn.completed {

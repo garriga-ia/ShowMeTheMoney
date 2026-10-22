@@ -684,9 +684,9 @@
         }
       };
 
-      // 2. Mida del text
-      const fontSizes = ["md", "lg", "sm"];
-      const fontLabels = { md: "Mida normal (Aa)", lg: "Mida gran (A+)", sm: "Mida compacta (A-)" };
+      // 2. Mida del text (Per defecte Gran 'lg' per a mòbil)
+      const fontSizes = ["lg", "md", "sm"];
+      const fontLabels = { lg: "Mida gran (A+)", md: "Mida normal (Aa)", sm: "Mida compacta (A-)" };
       function applyFontUI(size) {
         document.documentElement.classList.remove("font-sm", "font-md", "font-lg");
         document.body.classList.remove("font-sm", "font-md", "font-lg");
@@ -695,18 +695,18 @@
         if (btnToggleFont) {
           btnToggleFont.title = `Mida del text: ${fontLabels[size] || size} (clic per canviar)`;
           if (size === "lg") {
-            btnToggleFont.innerHTML = '<span style="font-size:14px; font-weight:800; color:var(--teal);">A+</span>';
+            btnToggleFont.innerHTML = '<span style="font-size:13px; font-weight:800; color:var(--teal);">A+</span>';
           } else if (size === "sm") {
             btnToggleFont.innerHTML = '<span style="font-size:11px; font-weight:700;">A-</span>';
           } else {
-            btnToggleFont.innerHTML = '<span style="font-size:13px; font-weight:700;">Aa</span>';
+            btnToggleFont.innerHTML = '<span style="font-size:12.5px; font-weight:700;">Aa</span>';
           }
         }
       }
-      applyFontUI(AppState.get().settings.fontSize || "md");
+      applyFontUI(AppState.get().settings.fontSize || "lg");
 
       btnToggleFont.onclick = () => {
-        const current = AppState.get().settings.fontSize || "md";
+        const current = AppState.get().settings.fontSize || "lg";
         const nextIdx = (fontSizes.indexOf(current) + 1) % fontSizes.length;
         const nextSize = fontSizes[nextIdx];
         AppState.setFontSize(nextSize);
