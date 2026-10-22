@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ShowMeTheMoney · Curs de Finances per a Joves (16–18 anys)</title>
+  <meta name="description" content="ShowMeTheMoney: Aprèn a gestionar la pasta sense rotllos. 12 capítols interactius de 8 minuts en format xat per a joves de 16 a 18 anys.">
+  <meta name="theme-color" content="#0f1417">
+  
+  <!-- Targeta de vista prèvia per a WhatsApp, Telegram i xarxes socials -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ShowMeTheMoney · Curs de Finances per a Joves (16–18 anys)">
+  <meta property="og:description" content="SHOW ME THE MONEY! Aprèn a gestionar la pasta sense rotllos ni enganys. 12 capítols interactius en format xat.">
+  <meta property="og:image" content="img/og-show-me-the-money.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ShowMeTheMoney · Curs de Finances per a Joves">
+  <meta name="twitter:description" content="SHOW ME THE MONEY! Aprèn a gestionar la pasta sense rotllos ni enganys abans dels 18 anys.">
+  <meta name="twitter:image" content="img/og-show-me-the-money.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💸</text></svg>">
+
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/widgets.css">
+</head>
+<body>
+
+  <div class="wrap">
+    <!-- BARRA GLOBAL SUPERIOR -->
+    <header class="navbar">
+      <button class="nav-brand" id="btn-home-brand" type="button">
+        <span class="nav-logo-badge">💸 ShowMeTheMoney</span>
+        <span class="nav-title">Finances Joves</span>
+      </button>
+
+      <div class="nav-right-cluster">
+        <div class="stat-pill wallet" id="stat-wallet-pill" title="Coixí virtual estalviat">
+          <span class="wallet-icon">🛡️</span>
+          <span id="stat-wallet">0,00 €</span>
+          <div id="wallet-float-badge" class="wallet-float-badge"></div>
+        </div>
+
+        <div class="nav-actions">
+          <button id="btn-toggle-sound" class="nav-icon-btn" type="button" title="Activar/Desactivar so" aria-label="So">🔊</button>
+          <button id="btn-toggle-font" class="nav-icon-btn" type="button" title="Mida de lletra (Normal / Gran / Petita)" aria-label="Mida de text">Aa</button>
+          <button id="btn-toggle-theme" class="nav-icon-btn" type="button" title="Canviar mode fosc/clar" aria-label="Mode fosc o clar">🌓</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         VISTA 1: DASHBOARD / HUB DEL CURS
+         ====================================================================== -->
+    <main id="view-dashboard" class="view active">
+      <div class="dash-header">
+        <span class="dash-badge">Octubre 2026 · Edició Jove</span>
+        <h1 class="dash-title">Aprèn a gestionar la pasta sense rotllos</h1>
+        <p class="dash-desc">12 capítols pràctics de 8 minuts en format xat interactiu. Pren decisions reals amb la teva colla.</p>
+      </div>
+
+      <!-- Bloc destacat: Què aprendràs aquí? (Les 12 Regles d'Or) -->
+      <section class="dash-learn-summary-box">
+        <span class="learn-badge">🎯 QUÈ APRENDRÀS AQUÍ</span>
+        <div>
+          <h2 class="learn-summary-title">Les 12 claus per controlar els teus diners als 18 anys</h2>
+          <p class="learn-summary-desc">Consells pràctics i directes basats en decisions reals per blindar la teva pasta:</p>
+        </div>
+
+        <div class="learn-highlights-grid">
+          <div class="learn-pill">
+            <span class="learn-icon">💶</span>
+            <div><b>El teu sou real net:</b> Com mesurar qualsevol compra en hores de feina.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">💳</span>
+            <div><b>Bancs sense comissions:</b> Evitar targetes <i>revolving</i> abusives (>20% TAE).</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">📱</span>
+            <div><b>Bizum irreversible:</b> Protegir-te de fraus i devolucions trampa.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">☕</span>
+            <div><b>Despeses formiga:</b> La regla de les 48 hores i tallar subscripcions.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">🍻</span>
+            <div><b>Pressupost social:</b> Sortir amb la colla sense endeutar-te ni pressió.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">⚠️</span>
+            <div><b>Trampa de terminis:</b> No finançar mòbils a crèdits cars.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">🛡️</span>
+            <div><b>Coixí d'emergència:</b> Construir 300-500 € intocables per tenir pau.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">🌱</span>
+            <div><b>Paga't a tu primer:</b> Estalviar automàticament el dia que cobres.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">📈</span>
+            <div><b>Inversió real en ETFs:</b> Cistelles mundials a foc lent vs 'finfluencers'.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">📄</span>
+            <div><b>Nòmina d'adult:</b> Cotitzar totes les hores i entendre 12 vs 14 pagues.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">📑</span>
+            <div><b>La Renda sense por:</b> Recuperar retencions i atenció als 2 pagadors.</div>
+          </div>
+          <div class="learn-pill">
+            <span class="learn-icon">🔑</span>
+            <div><b>Regla del 30% al lloguer:</b> Despeses reals de viure sol i fiances.</div>
+          </div>
+        </div>
+
+        <div class="learn-summary-actions">
+          <button id="btn-open-checklist" class="btn gold" type="button">
+            📄 Descarregar o Imprimir la Fitxa Completa (PDF) 🖨️
+          </button>
+        </div>
+      </section>
+
+      <!-- Llista dels 4 blocs del curs -->
+      <div id="course-blocks-container"></div>
+
+      <!-- Presentació de la colla -->
+      <section class="dash-colla-box">
+        <div class="dash-colla-title">
+          <span>👥</span> La teva colla al curs:
+        </div>
+        <div class="colla-avatars-row" id="colla-avatars-list"></div>
+      </section>
+
+      <!-- Botó discret de reinici -->
+      <div style="text-align:center; margin-top:30px;">
+        <button id="btn-reset-app" style="background:none; border:none; color:var(--mut); font-size:12px; cursor:pointer; text-decoration:underline;">
+          Reiniciar tot el progrés des de zero
+        </button>
+      </div>
+    </main>
+
+    <!-- ======================================================================
+         VISTA 2: REPRODUCTOR DE CAPÍTOL (SINGLE-FEED CHAT)
+         ====================================================================== -->
+    <main id="view-player" class="view">
+      <!-- Capçalera del capítol -->
+      <div class="chapter-bar">
+        <div class="title-box">
+          <div class="t1" id="player-chapter-title">Capítol 1 · El primer sou</div>
+          <div class="t2" id="player-chapter-subtitle">Durada estimada: uns 8 minuts</div>
+        </div>
+        <div class="prog-steps" id="chapter-prog-steps"></div>
+      </div>
+
+      <!-- Controls auxiliars (Tornar i velocitat del xat) -->
+      <div class="chat-controls-bar">
+        <button class="back-to-hub-btn" id="btn-back-hub-top" type="button">
+          ← Tornar a l'índex
+        </button>
+
+        <div class="speed-toggle-group">
+          <button class="speed-btn on" data-speed="1" title="Velocitat normal">1x</button>
+          <button class="speed-btn" data-speed="2" title="Velocitat ràpida">2x</button>
+          <button class="speed-btn" data-speed="99" title="Saltar animació de xat">≫</button>
+        </div>
+      </div>
+
+      <!-- El feed continu de xat interactiu -->
+      <div class="chat-stream" id="chat-stream"></div>
+    </main>
+  </div>
+
+  <!-- ======================================================================
+       MODAL FITXA RESUM: TXEC-LIST FINANCER ALS 18 ANYS (DESCARREGABLE / IMPRIMIBLE)
+       ====================================================================== -->
+  <div id="modal-checklist" class="checklist-modal-backdrop hide" role="dialog" aria-modal="true" aria-labelledby="checklist-modal-title">
+    <div class="checklist-modal-window">
+      <div class="checklist-modal-header">
+        <div>
+          <span class="checklist-tag">GUIA DE SUPERVIVÈNCIA</span>
+          <h2 id="checklist-modal-title">Txec-list Financer als 18 anys</h2>
+          <p class="checklist-sub">Les 12 Regles d'Or per gestionar els diners sense paranys, estafes ni angoixes</p>
+        </div>
+        <button id="btn-close-checklist" class="modal-close-btn" type="button" aria-label="Tancar fitxa">✕</button>
+      </div>
+
+      <div class="checklist-modal-actions no-print">
+        <button id="btn-print-checklist" class="btn gold" type="button">🖨️ Imprimir / Guardar en PDF</button>
+        <button id="btn-copy-checklist" class="btn ghost" type="button">📋 Copiar les 12 Regles</button>
+        <span id="checklist-copy-toast" class="checklist-copy-toast hide">✓ Copiat al porta-retalls!</span>
+      </div>
+
+      <div class="checklist-sheet-content" id="checklist-printable-content">
+        <div class="checklist-blocks-grid">
+          
+          <!-- BLOC 1 -->
+          <div class="checklist-block-section">
+            <div class="checklist-block-hdr">🛡️ Bloc 1: Primers diners i blindatge</div>
+            <div class="checklist-items-list">
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">1</span>
+                <div class="checklist-rule-text">
+                  <b>El teu sou real és el net:</b>
+                  <span>El que pots gastar és el que arriba al compte, no el brut. Divideix qualsevol caprici pel teu sou net per hora per saber quantes hores de vida et costa.</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">2</span>
+                <div class="checklist-rule-text">
+                  <b>Bancs transparents i dèbit:</b>
+                  <span>Fes servir comptes sense comissions de manteniment ni d'emissió. Rebutja sempre les targetes "revolving" o de crèdit ajornat (TAE > 20%).</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">3</span>
+                <div class="checklist-rule-text">
+                  <b>Bizum és irreversible:</b>
+                  <span>Un Bizum enviat mai es pot cancel·lar. Si un desconegut et demana "retornar diners rebuts per error", no ho facis mai: que reclami al seu banc.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BLOC 2 -->
+          <div class="checklist-block-section">
+            <div class="checklist-block-hdr">☕ Bloc 2: El dia a dia i pressió social</div>
+            <div class="checklist-items-list">
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">4</span>
+                <div class="checklist-rule-text">
+                  <b>Regla de les 48 hores:</b>
+                  <span>Espera 2 dies abans de qualsevol compra impulsiva per internet. Audita i cancel·la subscripcions digitals i despeses formiga cada 3 mesos.</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">5</span>
+                <div class="checklist-rule-text">
+                  <b>Pressupost social sense complexos:</b>
+                  <span>Defineix el teu límit per a sortides abans de marxar de casa. Proposar alternatives o dir "avui no em va bé gastar tant" demostra maduresa, no garreperia.</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">6</span>
+                <div class="checklist-rule-text">
+                  <b>La trampa del 'només 20 € al mes':</b>
+                  <span>Finançar mòbils o roba és un parany per fer-te comprar coses que no et pots permetre. Mira sempre la TAE i el cost total abans de signar un crèdit.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BLOC 3 -->
+          <div class="checklist-block-section">
+            <div class="checklist-block-hdr">🌱 Bloc 3: Paciència i el futur</div>
+            <div class="checklist-items-list">
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">7</span>
+                <div class="checklist-rule-text">
+                  <b>El coixí d'emergència (300 € - 500 €):</b>
+                  <span>Un fons intocable per a pantalles trencades, multes o fiances. Tenir-lo et permet gastar la resta sense culpa ni demanar préstecs als amics.</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">8</span>
+                <div class="checklist-rule-text">
+                  <b>Paga't a tu primer:</b>
+                  <span>L'estalvi no és el que sobra a final de mes (mai sobra res). Programa una transferència automàtica cap a una altra guardiola el mateix dia que cobres.</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">9</span>
+                <div class="checklist-rule-text">
+                  <b>Inversió real: Fons indexats / ETFs:</b>
+                  <span>Inverteix en cistelles globals diversificades a foc lent i a llarg termini. Fuig dels venedors de fum a TikTok i de qualsevol que et prometi diners fàcils.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BLOC 4 -->
+          <div class="checklist-block-section">
+            <div class="checklist-block-hdr">🔑 Bloc 4: El món adult i emancipació</div>
+            <div class="checklist-items-list">
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">10</span>
+                <div class="checklist-rule-text">
+                  <b>El contracte d'adult:</b>
+                  <span>12 o 14 pagues és el mateix salari anual dividit diferent. Exigeix sempre que totes les hores que treballes estiguin donades d'alta a la Seguretat Social.</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">11</span>
+                <div class="checklist-rule-text">
+                  <b>La Declaració de la Renda:</b>
+                  <span>Vigila si tens 2 pagadors l'any. Si has cobrat poc i l'empresa t'ha retingut IRPF, demanar l'esborrany farà que Hisenda et retorni els teus diners.</span>
+                </div>
+              </div>
+              <div class="checklist-rule-item">
+                <span class="checklist-rule-num">12</span>
+                <div class="checklist-rule-text">
+                  <b>La regla del 30% per viure sol:</b>
+                  <span>El lloguer mai hauria de superar un terç del teu sou net. Compte amb les fiances i despeses ocultes de subministraments: prepara un matalàs abans de marxar.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="checklist-footer-note">
+          💡 <b>Principi mestre:</b> Els diners no serveixen per presumir davant dels altres; serveixen per comprar la teva tranquil·litat i la teva independència.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carrega de mòduls JavaScript -->
+  <script src="js/state.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/colla.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/data/capitols-index.js"></script>
+  <script src="js/data/capitol1.js"></script>
+  <script src="js/data/capitol2.js"></script>
+  <script src="js/data/capitol3.js"></script>
+  <script src="js/data/capitol4.js"></script>
+  <script src="js/data/capitol5.js"></script>
+  <script src="js/data/capitol6.js"></script>
+  <script src="js/data/capitol7.js"></script>
+  <script src="js/data/capitol8.js"></script>
+  <script src="js/data/capitol9.js"></script>
+  <script src="js/data/capitol10.js"></script>
+  <script src="js/data/capitol11.js"></script>
+  <script src="js/data/capitol12.js"></script>
+
+  <!-- Controlador principal de la WebApp -->
+  <script>
+    (function initWebApp() {
+      const viewDash = document.getElementById("view-dashboard");
+      const viewPlayer = document.getElementById("view-player");
+      const statWallet = document.getElementById("stat-wallet");
+      const statWalletPill = document.getElementById("stat-wallet-pill");
+      const walletFloatBadge = document.getElementById("wallet-float-badge");
+      const blocksContainer = document.getElementById("course-blocks-container");
+      const collaList = document.getElementById("colla-avatars-list");
+
+      let currentWalletVal = AppState.get().virtualSavings || 0;
+      statWallet.textContent = currentWalletVal.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+
+      // Animació fluida del recompte del moneder
+      function animateWalletNumber(targetVal) {
+        const startVal = currentWalletVal;
+        const diff = targetVal - startVal;
+        if (Math.abs(diff) < 0.01) {
+          currentWalletVal = targetVal;
+          statWallet.textContent = targetVal.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+          return;
+        }
+
+        const duration = 900;
+        const startTime = performance.now();
+
+        function update(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease-out cubic
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const val = startVal + diff * ease;
+
+          statWallet.textContent = val.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            currentWalletVal = targetVal;
+            statWallet.textContent = targetVal.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+          }
+        }
+        requestAnimationFrame(update);
+      }
+
+      // Actualitzar estadístiques globals
+      AppState.subscribe(state => {
+        animateWalletNumber(state.virtualSavings);
+        renderDashboard();
+      });
+
+      // Funció global per fer bategar el badge flotant del moneder
+      window.triggerWalletBadge = function(delta) {
+        if (!walletFloatBadge || !statWalletPill) return;
+        const isGain = delta > 0;
+        const formatted = (isGain ? "+" : "") + delta.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+        walletFloatBadge.textContent = formatted;
+        walletFloatBadge.className = `wallet-float-badge ${isGain ? "show-gain" : "show-loss"}`;
+        statWalletPill.classList.remove("wallet-glow-gain", "wallet-glow-loss");
+        void statWalletPill.offsetWidth;
+        statWalletPill.classList.add(isGain ? "wallet-glow-gain" : "wallet-glow-loss");
+
+        setTimeout(() => {
+          walletFloatBadge.classList.remove("show-gain", "show-loss");
+          statWalletPill.classList.remove("wallet-glow-gain", "wallet-glow-loss");
+        }, 1800);
+      };
+
+      // Funció global de vol de monedes cap a la barra superior
+      window.animateCoinsToWallet = function(sourceEl) {
+        if (!statWalletPill) return;
+        const walletRect = statWalletPill.getBoundingClientRect();
+        const startRect = sourceEl ? sourceEl.getBoundingClientRect() : {
+          left: window.innerWidth / 2,
+          top: window.innerHeight / 2,
+          width: 0,
+          height: 0
+        };
+
+        const startX = startRect.left + (startRect.width ? startRect.width / 2 : 0);
+        const startY = startRect.top + (startRect.height ? startRect.height / 2 : 0);
+        const endX = walletRect.left + walletRect.width / 2;
+        const endY = walletRect.top + walletRect.height / 2;
+
+        const count = 8;
+        for (let i = 0; i < count; i++) {
+          const coin = document.createElement("div");
+          coin.className = "flying-coin";
+          coin.textContent = "🪙";
+          coin.style.left = `${startX + (Math.random() * 40 - 20)}px`;
+          coin.style.top = `${startY + (Math.random() * 20 - 10)}px`;
+          document.body.appendChild(coin);
+
+          const delay = i * 75;
+          setTimeout(() => {
+            coin.style.transition = "transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.75s ease";
+            coin.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(0.65)`;
+            coin.style.opacity = "0.1";
+
+            setTimeout(() => {
+              coin.remove();
+            }, 750);
+          }, delay);
+        }
+      };
+
+      // Funció global de pèrdua/despesa: diners volant cap avall des de la barra superior
+      window.animateCoinsFromWallet = function(targetEl) {
+        if (!statWalletPill) return;
+        const walletRect = statWalletPill.getBoundingClientRect();
+        const destRect = targetEl ? targetEl.getBoundingClientRect() : {
+          left: window.innerWidth / 2,
+          top: window.innerHeight / 2,
+          width: 0,
+          height: 0
+        };
+
+        const startX = walletRect.left + walletRect.width / 2;
+        const startY = walletRect.top + walletRect.height / 2;
+        const endX = destRect.left + (destRect.width ? destRect.width / 2 : 0);
+        const endY = destRect.top + (destRect.height ? destRect.height / 2 : 0);
+
+        const count = 8;
+        const icons = ["💸", "💥", "💸", "📉", "💸", "💸", "💥", "💸"];
+
+        for (let i = 0; i < count; i++) {
+          const item = document.createElement("div");
+          item.className = "flying-loss-item";
+          item.textContent = icons[i % icons.length];
+          item.style.left = `${startX + (Math.random() * 20 - 10)}px`;
+          item.style.top = `${startY + (Math.random() * 10 - 5)}px`;
+          document.body.appendChild(item);
+
+          const delay = i * 65;
+          setTimeout(() => {
+            const spreadX = (Math.random() - 0.5) * 100;
+            item.style.transition = "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease";
+            item.style.transform = `translate(${endX - startX + spreadX}px, ${endY - startY}px) scale(0.6) rotate(${Math.random() * 90 - 45}deg)`;
+            item.style.opacity = "0.05";
+
+            setTimeout(() => {
+              item.remove();
+            }, 800);
+          }, delay);
+        }
+      };
+
+      // Render de la colla al footer del dashboard
+      function renderCollaAvatars() {
+        collaList.innerHTML = "";
+        ["nil", "marc", "marta", "aina", "pau"].forEach(key => {
+          const p = COLLA[key];
+          const item = document.createElement("div");
+          item.className = "colla-mini-pill";
+          item.innerHTML = `${p.svg} <span><b>${p.name}</b> <span style="color:var(--mut)">(${p.role})</span></span>`;
+          collaList.appendChild(item);
+        });
+      }
+      renderCollaAvatars();
+
+      // Render del Dashboard amb els 4 blocs
+      function renderDashboard() {
+        blocksContainer.innerHTML = "";
+        const state = AppState.get();
+
+        BLOCS_CURS.forEach(block => {
+          const blockEl = document.createElement("section");
+          blockEl.className = "course-block";
+
+          const totalInBlock = block.chapterIds.length;
+          const doneInBlock = block.chapterIds.filter(id => state.completedChapters.includes(id)).length;
+
+          blockEl.innerHTML = `
+            <div class="block-header">
+              <h2 class="block-title">${block.title}</h2>
+              <span class="block-count">${doneInBlock}/${totalInBlock} fets · ${block.subtitle}</span>
+            </div>
+            <div class="chapters-list" id="block-list-${block.id}"></div>
+          `;
+
+          const listEl = blockEl.querySelector(`#block-list-${block.id}`);
+
+          block.chapterIds.forEach(id => {
+            const chap = CAPITOLS_DATA[id];
+            const isCompleted = state.completedChapters.includes(id);
+            const isUnlocked = state.unlockedChapters.includes(id) || chap.playable;
+
+            const card = document.createElement("button");
+            card.type = "button";
+            card.className = `dash-card ${isCompleted ? "done" : ""} ${isUnlocked ? "" : "locked"}`;
+            
+            let tagHtml = "";
+            if (isCompleted) {
+              tagHtml = `<span class="dash-status-tag tag-done">✓ Completat</span>`;
+            } else if (chap.playable) {
+              tagHtml = `<span class="dash-status-tag ${chap.tagClass}">${chap.statusText}</span>`;
+            } else {
+              tagHtml = `<span class="dash-status-tag tag-pend">${chap.statusText}</span>`;
+            }
+
+            card.innerHTML = `
+              <div class="dash-num">${isCompleted ? "✓" : chap.num}</div>
+              <div class="dash-info">
+                <div class="dash-card-top">
+                  <h3 class="dash-card-title">${chap.title}</h3>
+                  ${tagHtml}
+                </div>
+                <p class="dash-card-desc">${chap.desc}</p>
+                <div class="dash-card-meta">
+                  <span>⏱ ${chap.duration}</span>
+                  ${chap.playable ? `<span style="margin-left:auto; font-weight:700;">${isCompleted ? "Rejugar ↺" : "Començar →"}</span>` : ""}
+                </div>
+              </div>
+            `;
+
+            card.onclick = () => {
+              if (chap.playable) {
+                window.loadChapter(chap.id);
+              } else {
+                alert(`El ${chap.title} està en fase de redacció i s'activarà en la propera actualització.`);
+              }
+            };
+
+            listEl.appendChild(card);
+          });
+
+          blocksContainer.appendChild(blockEl);
+        });
+      }
+
+      // Router senzill per canviar de vista
+      window.loadChapter = function(chapterId) {
+        window.location.hash = `#chapter-${chapterId}`;
+      };
+
+      function route() {
+        const hash = window.location.hash || "#dashboard";
+        if (hash.startsWith("#chapter-")) {
+          const id = Number(hash.replace("#chapter-", ""));
+          startChapterPlayer(id);
+        } else {
+          viewPlayer.classList.remove("active");
+          viewDash.classList.add("active");
+          window.scrollTo(0, 0);
+        }
+      }
+
+      window.addEventListener("hashchange", route);
+
+      function startChapterPlayer(chapterId) {
+        viewDash.classList.remove("active");
+        viewPlayer.classList.add("active");
+        window.scrollTo(0, 0);
+
+        const chap = CAPITOLS_DATA[chapterId];
+        document.getElementById("player-chapter-title").textContent = `Capítol ${chap.num} · ${chap.title}`;
+        document.getElementById("player-chapter-subtitle").textContent = `${chap.subtitle} · ${chap.duration}`;
+
+        const stream = document.getElementById("chat-stream");
+        ChatEngine.init(stream);
+
+        // Targeta introductòria visual: Què aprendràs en aquest capítol?
+        if (chap && chap.goal) {
+          const goalCard = document.createElement("div");
+          goalCard.className = "chapter-intro-goal-card";
+          goalCard.innerHTML = `
+            <span class="goal-tag">🎯 Què aprendràs en aquest capítol?</span>
+            <p class="goal-text">${chap.goal}</p>
+          `;
+          stream.insertBefore(goalCard, ChatEngine.tailEl);
+        }
+
+        if (chapterId === 1) {
+          Capitol1.start();
+        } else if (chapterId === 2) {
+          Capitol2.start();
+        } else if (chapterId === 3) {
+          Capitol3.start();
+        } else if (chapterId === 4) {
+          Capitol4.start();
+        } else if (chapterId === 5) {
+          Capitol5.start();
+        } else if (chapterId === 6) {
+          Capitol6.start();
+        } else if (chapterId === 7) {
+          Capitol7.start();
+        } else if (chapterId === 8) {
+          Capitol8.start();
+        } else if (chapterId === 9) {
+          Capitol9.start();
+        } else if (chapterId === 10) {
+          Capitol10.start();
+        } else if (chapterId === 11) {
+          Capitol11.start();
+        } else if (chapterId === 12) {
+          Capitol12.start();
+        } else {
+          ChatEngine.say("marc", `Aquest capítol (${chap.title}) s'està preparant.`);
+        }
+      }
+
+      // Controls del reproductor
+      document.getElementById("btn-back-hub-top").onclick = () => {
+        window.location.hash = "#dashboard";
+      };
+      document.getElementById("btn-home-brand").onclick = () => {
+        window.location.hash = "#dashboard";
+      };
+
+      // Selectors de velocitat
+      document.querySelectorAll(".speed-btn").forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll(".speed-btn").forEach(b => b.classList.remove("on"));
+          btn.classList.add("on");
+          const spd = Number(btn.dataset.speed);
+          AppState.setSpeed(spd);
+        };
+      });
+
+      // ======================================================================
+      // ACCESSIBILITAT I CONFIGURACIÓ GLOBAL (SO, FONT, TEMA)
+      // ======================================================================
+      const btnToggleSound = document.getElementById("btn-toggle-sound");
+      const btnToggleFont = document.getElementById("btn-toggle-font");
+      const btnToggleTheme = document.getElementById("btn-toggle-theme");
+
+      // 1. So
+      function applySoundUI(enabled) {
+        if (!btnToggleSound) return;
+        btnToggleSound.textContent = enabled ? "🔊" : "🔇";
+        btnToggleSound.title = enabled ? "So activat (clic per silenciar)" : "So silenciat (clic per activar)";
+        btnToggleSound.classList.toggle("muted", !enabled);
+      }
+      applySoundUI(AppState.get().settings.sound !== false);
+
+      btnToggleSound.onclick = () => {
+        const isSoundOn = AppState.toggleSound();
+        applySoundUI(isSoundOn);
+        if (isSoundOn && typeof SoundFX !== "undefined") {
+          SoundFX.playCoin();
+        }
+      };
+
+      // 2. Mida del text
+      const fontSizes = ["md", "lg", "sm"];
+      const fontLabels = { md: "Mida normal (Aa)", lg: "Mida gran (A+)", sm: "Mida compacta (A-)" };
+      function applyFontUI(size) {
+        document.documentElement.classList.remove("font-sm", "font-md", "font-lg");
+        document.body.classList.remove("font-sm", "font-md", "font-lg");
+        document.documentElement.classList.add(`font-${size}`);
+        document.body.classList.add(`font-${size}`);
+        if (btnToggleFont) {
+          btnToggleFont.title = `Mida del text: ${fontLabels[size] || size} (clic per canviar)`;
+          if (size === "lg") {
+            btnToggleFont.innerHTML = '<span style="font-size:14px; font-weight:800; color:var(--teal);">A+</span>';
+          } else if (size === "sm") {
+            btnToggleFont.innerHTML = '<span style="font-size:11px; font-weight:700;">A-</span>';
+          } else {
+            btnToggleFont.innerHTML = '<span style="font-size:13px; font-weight:700;">Aa</span>';
+          }
+        }
+      }
+      applyFontUI(AppState.get().settings.fontSize || "md");
+
+      btnToggleFont.onclick = () => {
+        const current = AppState.get().settings.fontSize || "md";
+        const nextIdx = (fontSizes.indexOf(current) + 1) % fontSizes.length;
+        const nextSize = fontSizes[nextIdx];
+        AppState.setFontSize(nextSize);
+        applyFontUI(nextSize);
+        if (typeof SoundFX !== "undefined") SoundFX.playClick();
+      };
+
+      // 3. Mode Fosc / Mode Clar
+      function applyThemeUI(theme) {
+        const isLight = theme === "light";
+        document.body.classList.toggle("light-theme", isLight);
+        if (btnToggleTheme) {
+          btnToggleTheme.textContent = isLight ? "☀️" : "🌓";
+          btnToggleTheme.title = isLight ? "Mode clar actiu (clic per mode fosc)" : "Mode fosc actiu (clic per mode clar)";
+        }
+      }
+      applyThemeUI(AppState.get().settings.theme || "dark");
+
+      btnToggleTheme.onclick = () => {
+        const current = AppState.get().settings.theme || "dark";
+        const nextTheme = current === "light" ? "dark" : "light";
+        AppState.setTheme(nextTheme);
+        applyThemeUI(nextTheme);
+        if (typeof SoundFX !== "undefined") SoundFX.playClick();
+      };
+
+      // ======================================================================
+      // MODAL FITXA RESUM (TXEC-LIST ALS 18)
+      // ======================================================================
+      const modalChecklist = document.getElementById("modal-checklist");
+      const btnOpenChecklist = document.getElementById("btn-open-checklist");
+      const btnCloseChecklist = document.getElementById("btn-close-checklist");
+      const btnPrintChecklist = document.getElementById("btn-print-checklist");
+      const btnCopyChecklist = document.getElementById("btn-copy-checklist");
+      const copyToast = document.getElementById("checklist-copy-toast");
+
+      if (btnOpenChecklist) {
+        btnOpenChecklist.onclick = () => {
+          modalChecklist.classList.remove("hide");
+          if (typeof SoundFX !== "undefined") SoundFX.playClick();
+        };
+      }
+
+      if (btnCloseChecklist) {
+        btnCloseChecklist.onclick = () => {
+          modalChecklist.classList.add("hide");
+        };
+      }
+
+      // Tancar en clicar fora de la finestra
+      if (modalChecklist) {
+        modalChecklist.onclick = (e) => {
+          if (e.target === modalChecklist) {
+            modalChecklist.classList.add("hide");
+          }
+        };
+      }
+
+      // Imprimir fitxa
+      if (btnPrintChecklist) {
+        btnPrintChecklist.onclick = () => {
+          window.print();
+        };
+      }
+
+      // Copiar regles al porta-retalls
+      if (btnCopyChecklist) {
+        btnCopyChecklist.onclick = () => {
+          const textToCopy = `TXEC-LIST FINANCER ALS 18 ANYS · LES 12 REGLES D'OR
+Curs de Finances per a Joves
+
+BLOC 1: PRIMERS DINERS I BLINDATGE
+1. El teu sou real és el net: El que pots gastar és el que arriba al compte, no el brut. Divideix qualsevol compra pel teu sou net per hora per saber quantes hores de vida et costa.
+2. Bancs transparents i dèbit: Fes servir comptes sense comissions. Rebutja completament les targetes de crèdit revolving o pagament ajornat (TAE > 20%).
+3. Bizum és irreversible: Un Bizum enviat mai es pot cancel·lar. Si algú et demana "retornar diners rebuts per error", que reclami directament al seu banc.
+
+BLOC 2: EL DIA A DIA I PRESSIÓ SOCIAL
+4. Regla de les 48 hores: Espera 2 dies abans de qualsevol compra impulsiva per internet. Audita subscripcions i despeses formiga cada trimestre.
+5. Pressupost social sense complexos: Fixa el teu límit abans de sortir. Dir "avui no em va bé gastar tant" demostra maduresa, no garreperia.
+6. La trampa del 'només 20 € al mes': Finançar mòbils o roba és un parany. Comprova sempre la TAE i el cost total abans de finançar res.
+
+BLOC 3: PACIÈNCIA I EL FUTUR
+7. El coixí d'emergència (300 € - 500 €): Un fons intocable per a imprevistos que et dóna llibertat per gastar la resta sense angoixes.
+8. Paga't a tu primer: Programa una transferència automàtica cap a l'estalvi el mateix dia que cobres, no esperis a final de mes.
+9. Inversió real (ETFs): Cistelles mundials diversificades a foc lent i a llarg termini. Fuig dels 'finfluencers' del diner ràpid.
+
+BLOC 4: EL SALT ALS 18 ANYS I EMANCIPACIÓ
+10. El contracte d'adult: 12 o 14 pagues és el mateix salari anual dividit diferent. Exigeix sempre que totes les hores treballades cotitzin a la Seguretat Social.
+11. La Renda sense por: Si has tingut 2 pagadors o t'han retingut IRPF cobrant poc, fer la declaració farà que Hisenda et retorni els teus diners.
+12. La regla del 30% per viure sol: El lloguer mai hauria de superar un terç del teu sou net. Prepara un coixí de 3 mesos per a fiances i despeses abans d'emancipar-te.
+
+PRINCIPI MESTRE: Els diners serveixen per comprar la teva tranquil·litat i independència, no per impressionar ningú.`;
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              if (copyToast) {
+                copyToast.classList.remove("hide");
+                setTimeout(() => copyToast.classList.add("hide"), 2500);
+              }
+              if (typeof SoundFX !== "undefined") SoundFX.playClick();
+            });
+          }
+        };
+      }
+
+      // Botó de reinici
+      document.getElementById("btn-reset-app").onclick = () => {
+        if (confirm("Vols reiniciar totes les dades i el progrés del curs?")) {
+          AppState.reset();
+          renderDashboard();
+        }
+      };
+
+      // Inicialitzar vista segons hash actual
+      route();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1060 @@
+/* ==========================================================================
+   APP.CSS - Estils globals, disseny fosc, layout i navegació de la WebApp
+   ========================================================================== */
+
+:root {
+  --bg: #0f1417;
+  --card: #1a2126;
+  --card-hover: #222b32;
+  --ink: #e9edef;
+  --mut: #96a1a8;
+  --line: #2b343b;
+  --nav-bg: rgba(15, 20, 23, 0.92);
+
+  /* Colors d'accent */
+  --teal: #2fe6a7;
+  --teal2: rgba(47, 230, 167, 0.14);
+  --teal-glow: rgba(47, 230, 167, 0.35);
+  --me: #14453a;
+  --warn: #ff7a6b;
+  --warn2: rgba(255, 122, 107, 0.13);
+  --ok: #4ade9d;
+  --ok2: rgba(74, 222, 157, 0.13);
+  --gold: #f5c842;
+  --gold2: rgba(245, 200, 66, 0.15);
+
+  /* Xat i elements */
+  --chatbg: #12181d;
+  --bub: #232d34;
+  --head-ink: #07130e;
+  --btn-ink: #07130e;
+
+  /* Rols personatges */
+  --n-marc: #8fb4dd;
+  --n-nil: #f09a63;
+  --n-marta: #7fce9b;
+  --n-aina: #c19ae0;
+  --n-pau: #e6c25a;
+
+  --r: 16px;
+  --r-sm: 10px;
+
+  /* Escala de lletra */
+  --font-scale: 1;
+}
+
+/* Modificadors d'accessibilitat: mida de lletra */
+html.font-sm, body.font-sm { --font-scale: 0.85; }
+html.font-md, body.font-md { --font-scale: 1; }
+html.font-lg, body.font-lg { --font-scale: 1.25; }
+
+/* Escalat global aplicat a elements de text concrets */
+.bub {
+  font-size: calc(15px * var(--font-scale, 1)) !important;
+}
+.bub b.n {
+  font-size: calc(12px * var(--font-scale, 1)) !important;
+}
+.bub .role {
+  font-size: calc(11px * var(--font-scale, 1)) !important;
+}
+.dash-title {
+  font-size: calc(26px * var(--font-scale, 1)) !important;
+}
+.dash-desc {
+  font-size: calc(14px * var(--font-scale, 1)) !important;
+}
+.dash-card-title {
+  font-size: calc(15px * var(--font-scale, 1)) !important;
+}
+.dash-card-desc {
+  font-size: calc(13px * var(--font-scale, 1)) !important;
+}
+.opt {
+  font-size: calc(14px * var(--font-scale, 1)) !important;
+}
+.btn {
+  font-size: calc(14px * var(--font-scale, 1)) !important;
+}
+.maxim {
+  font-size: calc(14px * var(--font-scale, 1)) !important;
+}
+.chat-embed-card {
+  font-size: calc(14px * var(--font-scale, 1));
+}
+.step-anchor {
+  font-size: calc(13px * var(--font-scale, 1)) !important;
+}
+.checklist-rule-item {
+  font-size: calc(13px * var(--font-scale, 1)) !important;
+}
+.checklist-modal-window {
+  font-size: calc(14px * var(--font-scale, 1));
+}
+.stat-pill {
+  font-size: calc(12px * var(--font-scale, 1));
+}
+
+/* Mode Clar d'alt contrast */
+body.light-theme {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --card-hover: #f1f5f9;
+  --ink: #0f172a;
+  --mut: #64748b;
+  --line: #e2e8f0;
+  --nav-bg: rgba(248, 250, 252, 0.94);
+
+  --teal: #0d9488;
+  --teal2: rgba(13, 148, 136, 0.12);
+  --teal-glow: rgba(13, 148, 136, 0.28);
+  --me: #065f46;
+  --warn: #e11d48;
+  --warn2: rgba(225, 29, 72, 0.12);
+  --ok: #16a34a;
+  --ok2: rgba(22, 163, 74, 0.12);
+  --gold: #d97706;
+  --gold2: rgba(217, 119, 6, 0.15);
+
+  --chatbg: #ffffff;
+  --bub: #f1f5f9;
+  --head-ink: #ffffff;
+  --btn-ink: #ffffff;
+
+  --n-marc: #1d4ed8;
+  --n-nil: #c2410c;
+  --n-marta: #15803d;
+  --n-aina: #7e22ce;
+  --n-pau: #b45309;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: calc(16px * var(--font-scale, 1));
+  line-height: 1.45;
+  min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body {
+  padding-bottom: env(safe-area-inset-bottom, 24px);
+}
+
+.wrap {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 0 14px 48px;
+}
+
+/* ---------- Barra de navegació superior global ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 14px;
+  margin: 0 -14px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+}
+
+.nav-logo-badge {
+  background: var(--teal);
+  color: var(--head-ink);
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 8px;
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.nav-right-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-pill {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stat-pill.wallet {
+  color: var(--teal);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-icon-btn {
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.nav-icon-btn:hover {
+  background: var(--card-hover);
+  border-color: var(--teal);
+}
+
+.nav-icon-btn:active {
+  transform: scale(0.92);
+}
+
+.nav-icon-btn.muted {
+  opacity: 0.6;
+}
+
+/* ---------- Header del capítol en curs ---------- */
+.chapter-bar {
+  background: var(--teal);
+  color: var(--head-ink);
+  padding: 10px 14px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chapter-bar .title-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.chapter-bar .t1 {
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chapter-bar .t2 {
+  font-size: 12px;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+/* Selector de passos interactiu */
+.prog-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prog-step-btn {
+  background: rgba(7, 19, 14, 0.25);
+  border: none;
+  color: var(--head-ink);
+  font-size: 11px;
+  font-weight: 800;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.prog-step-btn.completed {
+  background: var(--head-ink);
+  color: var(--teal);
+}
+
+.prog-step-btn.active {
+  background: var(--head-ink);
+  color: #fff;
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px rgba(7, 19, 14, 0.35);
+}
+
+.prog-step-btn:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+/* Controls auxiliars: velocitat del xat (1x, 2x, skip) */
+.chat-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -6px 0 10px;
+  padding: 0 4px;
+}
+
+.back-to-hub-btn {
+  background: transparent;
+  border: none;
+  color: var(--mut);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.back-to-hub-btn:hover {
+  color: var(--teal);
+}
+
+.speed-toggle-group {
+  display: flex;
+  align-items: center;
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.speed-btn {
+  background: transparent;
+  border: none;
+  color: var(--mut);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.speed-btn.on {
+  background: var(--teal);
+  color: var(--head-ink);
+}
+
+/* ---------- Vistes (Dashboard vs Player) ---------- */
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+/* ---------- Dashboard del Curs ---------- */
+.dash-header {
+  margin-bottom: 20px;
+}
+
+.dash-badge {
+  display: inline-block;
+  background: var(--teal2);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.dash-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.dash-desc {
+  color: var(--mut);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Blocs del curs */
+.course-block {
+  margin-bottom: 24px;
+}
+
+.block-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+}
+
+.block-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.block-count {
+  font-size: 12px;
+  color: var(--mut);
+}
+
+.chapters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Targeta de capítol al dashboard */
+.dash-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+}
+
+.dash-card:hover {
+  background: var(--card-hover);
+  border-color: var(--teal);
+  transform: translateY(-2px);
+}
+
+.dash-card.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dash-card.locked:hover {
+  background: var(--card);
+  border-color: var(--line);
+  transform: none;
+}
+
+.dash-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bub);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.dash-card.done .dash-num {
+  background: var(--ok);
+  color: #07130e;
+  border-color: var(--ok);
+}
+
+.dash-card.active-cur .dash-num {
+  background: var(--teal);
+  color: #07130e;
+  border-color: var(--teal);
+  box-shadow: 0 0 10px var(--teal-glow);
+}
+
+.dash-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dash-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.dash-card-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0;
+  color: var(--ink);
+}
+
+.dash-status-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.tag-done {
+  background: var(--ok2);
+  color: var(--ok);
+}
+
+.tag-active {
+  background: var(--teal2);
+  color: var(--teal);
+}
+
+.tag-ready {
+  background: var(--gold2);
+  color: var(--gold);
+}
+
+.tag-pend {
+  background: rgba(150, 161, 168, 0.12);
+  color: var(--mut);
+}
+
+.dash-card-desc {
+  font-size: 13px;
+  color: var(--mut);
+  margin: 0 0 6px;
+  line-height: 1.35;
+}
+
+.dash-card-meta {
+  font-size: 12px;
+  color: var(--teal);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Targeta de perfil resum / colla */
+.dash-colla-box {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin-top: 24px;
+}
+
+.dash-colla-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 10px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.colla-avatars-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.colla-mini-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 4px 10px 4px 6px;
+  font-size: 12px;
+}
+
+.colla-mini-pill svg {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+}
+
+/* Utilitats generals */
+.hide {
+  display: none !important;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   BLOC "QUÈ APRENDRÀS AQUÍ" I FITXA RESUM
+   ========================================================================== */
+.dash-learn-summary-box, .dash-checklist-banner {
+  background: linear-gradient(135deg, rgba(47, 230, 167, 0.12) 0%, rgba(245, 200, 66, 0.08) 100%);
+  border: 1.5px solid var(--teal);
+  border-radius: var(--r);
+  padding: 18px 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+}
+
+.learn-badge, .checklist-badge {
+  display: inline-block;
+  background: var(--teal);
+  color: var(--head-ink);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.learn-summary-title, .checklist-banner-title {
+  font-size: calc(18px * var(--font-scale, 1)) !important;
+  font-weight: 800;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+
+.learn-summary-desc, .checklist-banner-desc {
+  font-size: calc(13px * var(--font-scale, 1)) !important;
+  color: var(--mut);
+  margin: 0 0 14px;
+  line-height: 1.4;
+}
+
+.learn-highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+@media (min-width: 500px) {
+  .learn-highlights-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.learn-pill {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: calc(12.5px * var(--font-scale, 1));
+  line-height: 1.35;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.learn-pill .learn-icon {
+  font-size: 16px;
+  flex: none;
+  margin-top: 1px;
+}
+
+.learn-pill b {
+  color: var(--ink);
+  display: block;
+  font-size: calc(12.5px * var(--font-scale, 1));
+}
+
+.learn-summary-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+/* Targeta "Què aprendràs en aquest capítol" a l'inici del xat */
+.chapter-intro-goal-card {
+  background: linear-gradient(135deg, rgba(47, 230, 167, 0.14) 0%, rgba(20, 69, 58, 0.25) 100%);
+  border: 1.5px solid var(--teal);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin: 10px 0 14px;
+  animation: pop 0.25s ease-out;
+}
+
+.goal-tag {
+  display: inline-block;
+  background: var(--teal);
+  color: var(--head-ink);
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+
+.goal-text {
+  font-size: calc(13.5px * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Modal de la fitxa resum */
+.checklist-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.checklist-modal-window {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  position: relative;
+}
+
+.checklist-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.checklist-tag {
+  background: var(--teal2);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.checklist-modal-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 6px 0 2px;
+  color: var(--ink);
+}
+
+.checklist-modal-header .checklist-sub {
+  font-size: 13px;
+  color: var(--mut);
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  color: var(--mut);
+  font-size: 16px;
+  font-weight: 700;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  transition: all 0.15s;
+}
+
+.modal-close-btn:hover {
+  color: var(--ink);
+  border-color: var(--teal);
+}
+
+.checklist-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.checklist-copy-toast {
+  font-size: 12px;
+  color: var(--ok);
+  font-weight: 700;
+}
+
+/* Contingut imprimible i targetes de la fitxa */
+.checklist-sheet-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.checklist-blocks-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 600px) {
+  .checklist-blocks-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.checklist-block-section {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.checklist-block-hdr {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checklist-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checklist-rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.checklist-rule-num {
+  background: var(--teal2);
+  color: var(--teal);
+  font-weight: 800;
+  font-size: 11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  margin-top: 1px;
+}
+
+.checklist-rule-text {
+  color: var(--ink);
+}
+
+.checklist-rule-text b {
+  color: var(--ink);
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.checklist-footer-note {
+  margin-top: 14px;
+  background: rgba(245, 200, 66, 0.12);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   ESTILS D'IMPRESSIÓ / PDF OFICIAL (@media print)
+   ========================================================================== */
+@media print {
+  body, html {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 10pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .wrap, .navbar, .chat-controls-bar, .no-print, .dash-header, .course-block, .dash-colla-box, .dash-checklist-banner, #view-player {
+    display: none !important;
+  }
+  .checklist-modal-backdrop {
+    position: static !important;
+    background: none !important;
+    padding: 0 !important;
+    display: block !important;
+    backdrop-filter: none !important;
+    overflow: visible !important;
+  }
+  .checklist-modal-window {
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .checklist-modal-header {
+    border-bottom: 2px solid #000 !important;
+    margin-bottom: 10px !important;
+    padding-bottom: 8px !important;
+  }
+  .checklist-tag {
+    background: none !important;
+    border: 1px solid #000 !important;
+    color: #000 !important;
+  }
+  .checklist-modal-header h2 {
+    color: #000 !important;
+    font-size: 16pt !important;
+    margin: 4px 0 !important;
+  }
+  .checklist-modal-header .checklist-sub {
+    color: #444 !important;
+    font-size: 10pt !important;
+  }
+  .checklist-modal-actions, .modal-close-btn {
+    display: none !important;
+  }
+  .checklist-blocks-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+  .checklist-block-section {
+    background: #fff !important;
+    border: 1px solid #999 !important;
+    border-radius: 6px !important;
+    padding: 8px 10px !important;
+    page-break-inside: avoid !important;
+  }
+  .checklist-block-hdr {
+    color: #000 !important;
+    font-size: 9.5pt !important;
+    border-bottom: 1px solid #ddd !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 6px !important;
+  }
+  .checklist-rule-item {
+    font-size: 8.5pt !important;
+    line-height: 1.35 !important;
+    gap: 6px !important;
+  }
+  .checklist-rule-num {
+    background: #e5e7eb !important;
+    color: #000 !important;
+    width: 17px !important;
+    height: 17px !important;
+    font-size: 7.5pt !important;
+  }
+  .checklist-rule-text b {
+    color: #000 !important;
+    font-size: 8.5pt !important;
+  }
+  .checklist-rule-text span {
+    color: #333 !important;
+  }
+  .checklist-footer-note {
+    background: #f3f4f6 !important;
+    border-left: 3px solid #000 !important;
+    color: #000 !important;
+    font-size: 9pt !important;
+    margin-top: 10px !important;
+    padding: 6px 10px !important;
+    page-break-inside: avoid !important;
+  }
+}

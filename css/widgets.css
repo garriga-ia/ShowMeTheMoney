@@ -1,0 +1,2178 @@
+/* ==========================================================================
+   WIDGETS.CSS - Calculadores, taules de nòmina, repartidor de diners i confeti
+   ========================================================================== */
+
+/* Botons generals */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--teal);
+  color: var(--btn-ink);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.15s ease, opacity 0.15s ease;
+  text-decoration: none;
+  min-height: 44px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--teal);
+  border: 1.5px solid var(--teal);
+}
+
+.btn.ghost:hover {
+  background: var(--teal2);
+}
+
+.btn.gold {
+  background: var(--gold);
+  color: #1a1500;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* Opcions de qüestionari / quiz */
+.opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--bub);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 13px;
+  margin: 8px 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 14px;
+}
+
+.opt:hover:not(:disabled) {
+  border-color: var(--teal);
+  background: rgba(47, 230, 167, 0.08);
+}
+
+.opt.sel {
+  border-color: var(--teal);
+  background: var(--teal2);
+}
+
+.opt.right {
+  border-color: var(--ok) !important;
+  background: var(--ok2) !important;
+  color: #fff;
+}
+
+.opt.wrong {
+  border-color: var(--warn) !important;
+  background: var(--warn2) !important;
+}
+
+.opt:disabled {
+  cursor: default;
+}
+
+/* Taula de nòmina */
+table.pay {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+table.pay td {
+  padding: 7px 4px;
+  border-bottom: 1px dashed var(--line);
+}
+
+table.pay td:last-child {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+table.pay tr.sub td {
+  color: var(--mut);
+  font-size: 12px;
+  padding-left: 14px;
+}
+
+table.pay tr.tot td {
+  font-weight: 800;
+  font-size: 16px;
+  border-bottom: none;
+  border-top: 2px solid var(--ink);
+  padding-top: 10px;
+  color: var(--teal);
+}
+
+.neg { color: var(--warn); }
+.pos { color: var(--ok); }
+
+/* Text d'ajuda o notes */
+.note {
+  font-size: 12px;
+  color: var(--mut);
+  line-height: 1.4;
+  margin: 8px 0;
+}
+
+/* ---------- Repartidor de diners de 3 bosses ---------- */
+.allocator-box {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 12px 0;
+}
+
+.allocator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.allocator-total {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+}
+
+.presets-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.chip {
+  border: 1.5px solid var(--line);
+  background: var(--bub);
+  color: var(--ink);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chip:hover {
+  border-color: var(--teal);
+}
+
+.chip.on {
+  border-color: var(--teal);
+  background: var(--teal);
+  color: var(--btn-ink);
+  font-weight: 700;
+}
+
+/* Barra segmentada de percentatges */
+.alloc-bar {
+  display: flex;
+  height: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 10px 0 14px;
+  border: 1px solid var(--line);
+  background: #111;
+}
+
+.alloc-bar span {
+  display: block;
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
+.seg-cushion { background: var(--teal); }
+.seg-spend   { background: #f09a63; }
+.seg-goals   { background: #8fb4dd; }
+
+/* Controladors individuals de bossa */
+.pocket-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: var(--bub);
+  border-radius: 10px;
+  margin: 6px 0;
+  border: 1px solid var(--line);
+  gap: 10px;
+}
+
+.pocket-info {
+  flex: 1;
+}
+
+.pocket-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pocket-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pocket-amount {
+  font-size: 12px;
+  color: var(--mut);
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+}
+
+.pocket-ctrls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pocket-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.pocket-btn:active {
+  background: var(--teal);
+  color: #000;
+}
+
+.pocket-val {
+  min-width: 44px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Resultats de la simulació */
+.sim-result-card {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+  animation: pop 0.25s ease-out;
+}
+
+.sim-result-card.ok {
+  border-color: var(--ok);
+  background: linear-gradient(180deg, rgba(74, 222, 157, 0.08) 0%, var(--card) 100%);
+}
+
+.sim-result-card.ko {
+  border-color: var(--warn);
+  background: linear-gradient(180deg, rgba(255, 122, 107, 0.08) 0%, var(--card) 100%);
+}
+
+.profile-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: var(--bub);
+  border: 1px solid var(--line);
+}
+
+.timeline-list {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.timeline-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  margin: 6px 0;
+  background: var(--bub);
+  border: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.timeline-list li.bad {
+  background: var(--warn2);
+  border-color: var(--warn);
+}
+
+.timeline-list li.good {
+  background: var(--ok2);
+  border-color: var(--ok);
+}
+
+/* Calculadora d'hores de feina */
+.txtin {
+  font: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--bub);
+  color: var(--ink);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.txtin:focus {
+  border-color: var(--teal);
+}
+
+.pout {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ---------- Celebració i Trofeu al final ---------- */
+.celebration-box {
+  background: linear-gradient(135deg, rgba(47, 230, 167, 0.12), rgba(245, 200, 66, 0.12));
+  border: 1.5px solid var(--teal);
+  border-radius: var(--r);
+  padding: 22px 18px;
+  text-align: center;
+  margin: 16px 0;
+  animation: pop 0.3s ease-out;
+}
+
+.trophy-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #12181d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(245, 200, 66, 0.4);
+}
+
+.celebration-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 4px;
+  color: #fff;
+}
+
+.celebration-sub {
+  font-size: 14px;
+  color: var(--mut);
+  margin: 0 0 16px;
+}
+
+.rewards-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.reward-pill {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   WIDGETS ESPECÍFICS CAPÍTOL 2: BANCS, COMPTES I TARGETES
+   ========================================================================== */
+
+/* 1. Lletra petita del regal bancari */
+.fineprint-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 12px 0;
+}
+
+.contract-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.contract-title {
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contract-badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: var(--warn2);
+  color: var(--warn);
+  font-weight: 700;
+}
+
+.clause-item {
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.clause-item:hover {
+  border-color: var(--teal);
+}
+
+.clause-item.revealed {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.08);
+}
+
+.clause-item.revealed .clause-hidden {
+  display: block;
+  animation: pop 0.25s ease-out;
+}
+
+.clause-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.clause-hidden {
+  display: none;
+  font-size: 12px;
+  color: #ff9d92;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255, 122, 107, 0.25);
+  line-height: 1.45;
+}
+
+.clause-tag-cost {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--warn);
+}
+
+.contract-total-calc {
+  background: #141b20;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.calc-price-big {
+  font-size: 28px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0;
+}
+
+/* 2. Visualitzador de Targetes (Debit vs Credit) */
+.cards-comparison-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 14px 0;
+}
+
+.bank-card-mockup {
+  border-radius: 16px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 165px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bank-card-mockup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.bank-card-mockup.debit {
+  background: linear-gradient(135deg, #10382e 0%, #17242c 100%);
+  border-color: rgba(47, 230, 167, 0.3);
+}
+
+.bank-card-mockup.credit {
+  background: linear-gradient(135deg, #421616 0%, #201318 100%);
+  border-color: rgba(255, 122, 107, 0.3);
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-bank-name {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.card-type-badge {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bank-card-mockup.debit .card-type-badge {
+  background: var(--teal);
+  color: #07130e;
+}
+
+.bank-card-mockup.credit .card-type-badge {
+  background: var(--warn);
+  color: #1f0707;
+}
+
+.card-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.card-chip {
+  width: 32px;
+  height: 24px;
+  background: linear-gradient(135deg, #e5b95f 0%, #d49a37 100%);
+  border-radius: 5px;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.card-contactless {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.card-number-row {
+  font-family: monospace;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 6px;
+}
+
+.card-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 11px;
+}
+
+.card-holder {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+}
+
+.card-summary-note {
+  font-size: 12px;
+  line-height: 1.45;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--bub);
+  border: 1px solid var(--line);
+}
+
+/* 3. Simulador interactiu de deute Revolving */
+.revolving-sim-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.revolving-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.revolving-stat-item {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.revolving-stat-val {
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.revolving-stat-label {
+  font-size: 11px;
+  color: var(--mut);
+}
+
+/* 4. Comparador de comptes joves */
+.compare-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.account-card {
+  background: var(--bub);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+}
+
+.account-card:hover {
+  border-color: var(--teal);
+  background: rgba(47, 230, 167, 0.04);
+}
+
+.account-card.selected {
+  border-color: var(--teal);
+  background: var(--teal2);
+}
+
+.account-card.danger.selected {
+  border-color: var(--warn);
+  background: var(--warn2);
+}
+
+.account-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.account-name {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.account-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+.account-tag.ok {
+  background: var(--ok2);
+  color: var(--ok);
+}
+
+.account-tag.warn {
+  background: var(--warn2);
+  color: var(--warn);
+}
+
+.account-features {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.account-features li {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.account-verdict {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  font-size: 12px;
+  color: var(--mut);
+}
+
+/* 5. Simulador de caixer ATM */
+.atm-box {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 12px 0;
+}
+
+.atm-screen {
+  background: #081116;
+  border: 2px solid #1a3542;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 10px 0;
+  font-family: monospace;
+}
+
+.atm-amount-btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+/* ==========================================================================
+   WIDGETS ESPECÍFICS CAPÍTOL 3: BIZUM, ESTAFES MÒBILS I LA NORMA D'OR
+   ========================================================================== */
+
+/* 1. Simulador de Pantalla de Mòbil i Bizum Invers */
+.phone-mockup {
+  background: #090e11;
+  border: 2px solid #222e36;
+  border-radius: 20px;
+  padding: 14px 12px;
+  margin: 14px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.phone-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--mut);
+  padding: 0 4px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 12px;
+}
+
+.bizum-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #00baa8;
+  color: #07130e;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+}
+
+.bizum-card-alert {
+  background: #141f26;
+  border: 1.5px solid #283a45;
+  border-radius: 14px;
+  padding: 14px;
+  margin: 8px 0;
+}
+
+.bizum-card-alert.danger-flash {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.08);
+}
+
+.bizum-card-alert.success-flash {
+  border-color: var(--ok);
+  background: rgba(74, 222, 157, 0.08);
+}
+
+.bizum-op-tag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bizum-op-tag.req {
+  background: var(--warn2);
+  color: var(--warn);
+}
+
+.bizum-op-tag.rcv {
+  background: var(--ok2);
+  color: var(--ok);
+}
+
+.bizum-btn-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-bizum-reject {
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 13px;
+}
+
+.btn-bizum-reject:hover {
+  background: #2f1d20;
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.btn-bizum-accept {
+  background: #00baa8;
+  border: none;
+  color: #041210;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 13px;
+}
+
+.btn-bizum-accept:hover {
+  background: #19d4c2;
+}
+
+/* 2. Simulador Wallapop i Banderes Vermelles */
+.wallapop-sim-box {
+  background: #12191d;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 14px;
+  margin: 14px 0;
+}
+
+.wallapop-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+
+.wallapop-logo-badge {
+  background: #13c1ac;
+  color: #fff;
+  font-weight: 900;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+.red-flag-item {
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.red-flag-item:hover {
+  border-color: var(--warn);
+}
+
+.red-flag-item.detected {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.1);
+}
+
+.red-flag-item .flag-explain {
+  display: none;
+  font-size: 12px;
+  color: #ff9d92;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(255, 122, 107, 0.2);
+  line-height: 1.4;
+}
+
+.red-flag-item.detected .flag-explain {
+  display: block;
+  animation: pop 0.2s ease-out;
+}
+
+/* 3. Radar Anti-Frau */
+.radar-item {
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 10px 0;
+}
+
+.radar-item.legit-verified {
+  border-color: var(--ok);
+  background: rgba(74, 222, 157, 0.06);
+}
+
+.radar-item.scam-blocked {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.06);
+}
+
+/* 4. Protocols d'emergència */
+.protocol-step {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin: 6px 0;
+  font-size: 13px;
+}
+
+.protocol-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #07130e;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* ==========================================================================
+   WIDGETS ESPECÍFICS CAPÍTOL 4: DESPESES FORMIGA I SUBSCRIPCIONS
+   ========================================================================== */
+
+/* 1. Extracte bancari d'auditoria */
+.statement-feed {
+  background: #0f161b;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  margin: 14px 0;
+}
+
+.statement-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  background: var(--bub);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.statement-row:hover {
+  border-color: var(--teal);
+  background: rgba(47, 230, 167, 0.05);
+}
+
+.statement-row.revealed {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.08);
+}
+
+.statement-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.statement-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex: none;
+}
+
+.statement-amount {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--warn);
+}
+
+/* 2. Calculadora de Despeses Formiga */
+.ant-calculator-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.ant-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 8px 0;
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ant-item.selected {
+  border-color: var(--teal);
+  background: var(--teal2);
+}
+
+.ant-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #07130e;
+  background: var(--card);
+}
+
+.ant-item.selected .ant-checkbox {
+  border-color: var(--teal);
+  background: var(--teal);
+}
+
+.ant-item-meta {
+  font-size: 11px;
+  color: var(--mut);
+}
+
+.ant-totals-dashboard {
+  background: #111a21;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 14px 0;
+  text-align: center;
+}
+
+.ant-equiv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ant-equiv-card {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.ant-equiv-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.ant-equiv-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.ant-equiv-desc {
+  font-size: 10px;
+  color: var(--mut);
+  margin-top: 2px;
+}
+
+/* 3. Neteja de Subscripcions */
+.subscription-cleaner-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.sub-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+.sub-item-card.cancelled {
+  border-color: var(--warn);
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.btn-toggle-sub {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-toggle-sub.cancel {
+  background: var(--warn2);
+  color: var(--warn);
+  border: 1px solid var(--warn);
+}
+
+.btn-toggle-sub.keep {
+  background: var(--ok2);
+  color: var(--ok);
+  border: 1px solid var(--ok);
+}
+
+/* ==========================================================================
+   WIDGETS ESPECÍFICS CAPÍTOL 5: PRESSUPOST SOCIAL I PRESSIÓ DE COLLA
+   ========================================================================== */
+
+/* 1. Desglossador del cost d'una entrada */
+.ticket-breakdown-card {
+  background: #141c22;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 14px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ticket-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px dashed var(--line);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.ticket-tag-event {
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--gold2);
+  color: var(--gold);
+  padding: 3px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+.cost-satellite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: var(--bub);
+  border-radius: 8px;
+  margin: 6px 0;
+  font-size: 13px;
+  border: 1px solid var(--line);
+}
+
+/* 2. Simulador de Negociació Social */
+.negotiation-sim-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.chat-prompt-bubble {
+  background: #1d2830;
+  border: 1px solid #2f4352;
+  border-radius: 12px 12px 12px 2px;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.comm-style-tag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.comm-style-tag.passive {
+  background: rgba(143, 180, 221, 0.15);
+  color: #8fb4dd;
+}
+
+.comm-style-tag.aggressive {
+  background: var(--warn2);
+  color: var(--warn);
+}
+
+.comm-style-tag.assertive {
+  background: var(--ok2);
+  color: var(--ok);
+}
+
+/* 3. Planificador de la Bossa d'Oci */
+.leisure-planner-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.leisure-meter-bar {
+  height: 14px;
+  background: var(--bub);
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  margin: 10px 0;
+  position: relative;
+}
+
+.leisure-meter-fill {
+  height: 100%;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.leisure-meter-fill.normal {
+  background: var(--teal);
+}
+
+.leisure-meter-fill.warning {
+  background: var(--gold);
+}
+
+.leisure-meter-fill.danger {
+  background: var(--warn);
+}
+
+.plan-item-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  margin: 6px 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 13px;
+}
+
+.plan-item-toggle:hover {
+  border-color: var(--teal);
+}
+
+.plan-item-toggle.active {
+  border-color: var(--teal);
+  background: var(--teal2);
+}
+
+/* ==========================================================================
+   WIDGETS ESPECÍFICS CAPÍTOL 6: FINANÇAMENT AL CONSUM, TIN I TAE
+   ========================================================================== */
+
+/* 1. Anunci comercial amb lletra petita */
+.ad-banner-mockup {
+  background: linear-gradient(135deg, #1b2830 0%, #10161a 100%);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 14px 0;
+  position: relative;
+}
+
+.ad-badge-promo {
+  display: inline-block;
+  background: #ff3366;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ad-main-price {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin: 4px 0;
+}
+
+.ad-fineprint-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--mut);
+}
+
+.ad-fineprint-box.revealed {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.08);
+  color: #ffb8b0;
+}
+
+/* 2. Línia temporal de devaluació (Depreciation) */
+.depreciation-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.timeline-compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.timeline-col {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+/* 3. Semàfor de finançament */
+.traffic-case-card {
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 10px 0;
+  transition: all 0.2s ease;
+}
+
+.traffic-case-card.green {
+  border-color: var(--ok);
+  background: rgba(74, 222, 157, 0.05);
+}
+
+.traffic-case-card.red {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.05);
+}
+
+.traffic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.traffic-badge.green {
+  background: var(--ok2);
+  color: var(--ok);
+}
+
+.traffic-badge.red {
+  background: var(--warn2);
+  color: var(--warn);
+}
+
+/* ==========================================================================
+   WIDGETS ESPECÍFICS CAPÍTOL 7: EL COIXÍ D'EMERGÈNCIA I ELS IMPREVISTOS
+   ========================================================================== */
+
+/* 1. Contrast de l'anatomia d'un imprevist */
+.emergency-contrast-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.contrast-card {
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.contrast-card.without {
+  background: rgba(255, 122, 107, 0.08);
+  border: 1.5px solid var(--warn);
+}
+
+.contrast-card.with {
+  background: rgba(74, 222, 157, 0.08);
+  border: 1.5px solid var(--ok);
+}
+
+/* 2. Simulador de la ruleta d'imprevistos */
+.shock-sim-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.shock-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  margin: 8px 0;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.shock-card.applied {
+  border-color: var(--warn);
+  background: rgba(255, 122, 107, 0.08);
+}
+
+.cushion-balance-gauge {
+  background: #0f161b;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  margin: 12px 0;
+}
+
+/* 3. Simulador Paga't a tu primer */
+.pay-yourself-box {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.strategy-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.strategy-card {
+  background: var(--bub);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.strategy-card.winner {
+  border-color: var(--teal);
+  background: var(--teal2);
+}
+
+/* 4. Càlcul del preu final segons la TAE (Repte Capítol 6) */
+.tae-calc-card {
+  background: #111a20;
+  border: 1.5px solid #263844;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.tae-formula-box {
+  background: var(--bub);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.tae-calc-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.tae-input-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mut);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.tae-input-group input,
+.tae-input-group select {
+  width: 100%;
+  padding: 9px 10px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  outline: none;
+}
+
+.tae-input-group input:focus,
+.tae-input-group select:focus {
+  border-color: var(--teal);
+}
+
+.tae-breakdown-steps {
+  background: #090e12;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.tae-step-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.tae-step-row:last-child {
+  border-bottom: none;
+  padding-top: 6px;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   ESTILS PER ALS CAPÍTOLS 8, 9, 10, 11 I 12
+   ========================================================================== */
+
+/* --- CAPÍTOL 8: PLANIFICADOR D'OBJECTIUS SMART --- */
+.smart-goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.smart-goal-btn {
+  background: var(--bub);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 10px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--ink);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.smart-goal-btn:hover {
+  border-color: var(--teal);
+}
+
+.smart-goal-btn.active {
+  border-color: var(--teal);
+  background: var(--teal2);
+  box-shadow: 0 0 10px var(--teal-glow);
+}
+
+.smart-goal-icon {
+  font-size: 26px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.smart-goal-title {
+  font-weight: 800;
+  font-size: 13px;
+  display: block;
+}
+
+.smart-goal-price {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.smart-calc-box {
+  background: #111a20;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.smart-stat-pill {
+  background: var(--bub);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--line);
+}
+
+.smart-stat-val {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--teal);
+  display: block;
+}
+
+.smart-stat-lbl {
+  font-size: 11px;
+  color: var(--mut);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.smart-sacrifice-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(47, 230, 167, 0.1);
+  border: 1px solid rgba(47, 230, 167, 0.3);
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin: 3px 0;
+  color: var(--ink);
+}
+
+/* --- CAPÍTOL 9: DETECTOR RED FLAGS I INTERÈS COMPOST --- */
+.red-flags-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.red-flag-card {
+  background: var(--bub);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.red-flag-card:hover {
+  border-color: var(--warn);
+}
+
+.red-flag-card.flagged {
+  border-color: var(--warn);
+  background: var(--warn2);
+}
+
+.red-flag-card.revealed-ok {
+  border-color: var(--ok);
+  background: var(--ok2);
+}
+
+/* --- ETF I INVERSIÓ REAL (CAPÍTOL 9) --- */
+.etf-basket-box {
+  background: #111a20;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 0;
+}
+
+.etf-companies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.etf-chip {
+  background: var(--bub);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: all 0.3s ease;
+}
+
+.etf-chip.failed {
+  border-color: var(--warn) !important;
+  background: var(--warn2) !important;
+  color: var(--warn) !important;
+  text-decoration: line-through;
+}
+
+.etf-chip.healthy {
+  border-color: var(--ok) !important;
+  background: var(--ok2) !important;
+  color: var(--ok) !important;
+}
+
+.save-vs-invest-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.save-card, .invest-card {
+  background: var(--bub);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.save-card {
+  border: 1.5px solid var(--n-marc);
+}
+
+.invest-card {
+  border: 1.5px solid var(--teal);
+}
+
+.compound-chart-container {
+  background: #090e12;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.compound-bar-group {
+  margin: 12px 0;
+}
+
+.compound-bar-track {
+  height: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  margin-top: 6px;
+}
+
+.compound-bar-fill-invested {
+  height: 100%;
+  background: #3b82f6;
+  transition: width 0.6s ease;
+}
+
+.compound-bar-fill-interest {
+  height: 100%;
+  background: var(--teal);
+  transition: width 0.6s ease;
+}
+
+/* --- CAPÍTOL 10: DESXIFRADOR DE NÒMINA I 12/14 PAGUES --- */
+.payroll-sheet-mockup {
+  background: #111a20;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 0;
+  font-size: 12px;
+}
+
+.payroll-interactive-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 3px 0;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.payroll-interactive-row:hover {
+  background: rgba(47, 230, 167, 0.08);
+  border-color: var(--teal);
+}
+
+.payroll-interactive-row.active {
+  background: var(--teal2);
+  border-color: var(--teal);
+}
+
+.payroll-explainer-box {
+  background: var(--bub);
+  border-left: 3px solid var(--teal);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* --- CAPÍTOL 11: ARBRE DE DECISIÓ I ESBORRANY RENDA --- */
+.tax-wizard-box {
+  background: #111a20;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 12px 0;
+}
+
+.tax-badge-result {
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.tax-badge-refund {
+  background: var(--ok2);
+  border: 1.5px solid var(--ok);
+  color: var(--ok);
+}
+
+.tax-badge-pay {
+  background: var(--warn2);
+  border: 1.5px solid var(--warn);
+  color: var(--warn);
+}
+
+/* --- CAPÍTOL 12: PIS COMPARTIT I DIPLOMA FINAL --- */
+.flatshare-box {
+  background: #111a20;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 0;
+}
+
+.flatshare-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+}
+
+.flatshare-gauge {
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.flatshare-gauge-fill {
+  height: 100%;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.diploma-box {
+  background: linear-gradient(145deg, #182820 0%, #0d1512 100%);
+  border: 2px solid var(--teal);
+  border-radius: 16px;
+  padding: 22px 18px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(47, 230, 167, 0.25);
+  margin: 16px 0;
+}
+
+.diploma-header {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.diploma-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  margin: 4px 0 10px;
+}
+
+/* ==========================================================================
+   AVISOS D'IMPACTE MONETARI I CONSEQÜÈNCIES EMOCIONALS
+   ========================================================================== */
+.money-impact-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin: 12px auto;
+  max-width: 90%;
+  animation: slideInImpact 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.money-impact-chip.loss {
+  background: rgba(255, 122, 107, 0.18);
+  border: 1.5px solid var(--warn);
+  box-shadow: 0 4px 15px rgba(255, 122, 107, 0.25);
+}
+
+.money-impact-chip.gain {
+  background: rgba(47, 230, 167, 0.18);
+  border: 1.5px solid var(--teal);
+  box-shadow: 0 4px 15px var(--teal-glow);
+}
+
+.impact-icon {
+  font-size: 24px;
+}
+
+.impact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.impact-amount {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.money-impact-chip.loss .impact-amount {
+  color: var(--warn);
+}
+
+.money-impact-chip.gain .impact-amount {
+  color: var(--teal);
+}
+
+.impact-label {
+  font-size: 11px;
+  color: var(--ink);
+  opacity: 0.9;
+}
+
+@keyframes slideInImpact {
+  from { transform: translateY(-10px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.flash-loss {
+  animation: flashRed 1s ease;
+  color: var(--warn) !important;
+}
+
+.flash-gain {
+  animation: flashGreen 1s ease;
+  color: var(--teal) !important;
+}
+
+@keyframes flashRed {
+  0% { transform: scale(1.15); color: #fff; background: var(--warn); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes flashGreen {
+  0% { transform: scale(1.15); color: #000; background: var(--teal); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   ANIMACIONS DE VOL DE MONEDES I RESALTAT DEL MONEDER SUPERIOR
+   ========================================================================== */
+.flying-coin {
+  position: fixed;
+  z-index: 99999;
+  font-size: 26px;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+}
+
+.flying-loss-item {
+  position: fixed;
+  z-index: 99999;
+  font-size: 26px;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(255, 122, 107, 0.6));
+}
+
+@keyframes shakeWalletLoss {
+  0% { transform: scale(1.18) translate(0, 0); }
+  15% { transform: scale(1.22) translate(-7px, 3px); }
+  30% { transform: scale(1.22) translate(6px, -4px); }
+  45% { transform: scale(1.18) translate(-6px, -2px); }
+  60% { transform: scale(1.18) translate(5px, 3px); }
+  75% { transform: scale(1.14) translate(-3px, 0); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+.stat-pill.wallet {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, background 0.3s ease;
+}
+
+.stat-pill.wallet.wallet-glow-gain {
+  transform: scale(1.2) !important;
+  box-shadow: 0 0 25px var(--teal), 0 0 45px var(--teal-glow) !important;
+  border-color: var(--teal) !important;
+  background: rgba(47, 230, 167, 0.3) !important;
+}
+
+.stat-pill.wallet.wallet-glow-loss {
+  animation: shakeWalletLoss 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  box-shadow: 0 0 25px var(--warn), 0 0 50px rgba(255, 122, 107, 0.6) !important;
+  border-color: var(--warn) !important;
+  background: rgba(255, 122, 107, 0.35) !important;
+}
+
+.wallet-float-badge {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 99999;
+}
+
+.wallet-float-badge.show-gain {
+  opacity: 1;
+  transform: translateY(0);
+  background: #09241b;
+  color: var(--teal);
+  border: 1.5px solid var(--teal);
+  box-shadow: 0 4px 15px rgba(47, 230, 167, 0.5);
+}
+
+.wallet-float-badge.show-loss {
+  opacity: 1;
+  transform: translateY(0);
+  background: #2b0e12;
+  color: var(--warn);
+  border: 1.5px solid var(--warn);
+  box-shadow: 0 4px 15px rgba(255, 122, 107, 0.5);
+}
