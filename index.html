@@ -152,10 +152,11 @@
         <div class="colla-avatars-row" id="colla-avatars-list"></div>
       </section>
 
-      <!-- Botó discret de reinici -->
-      <div style="text-align:center; margin-top:30px;">
-        <button id="btn-reset-app" style="background:none; border:none; color:var(--mut); font-size:12px; cursor:pointer; text-decoration:underline;">
-          Reiniciar tot el progrés des de zero
+      <!-- Caixa de gestió de partida: Reiniciar curs -->
+      <div class="dash-reset-box">
+        <div class="reset-desc">Vols tornar a començar la partida des del principi amb el saldo inicial de 100 €?</div>
+        <button id="btn-reset-app" class="btn-reset-clean" type="button">
+          🔄 Reiniciar tot el progrés i moneder des de zero
         </button>
       </div>
     </main>
@@ -857,9 +858,11 @@ PRINCIPI MESTRE: Els diners serveixen per comprar la teva tranquil·litat i inde
 
       // Botó de reinici
       document.getElementById("btn-reset-app").onclick = () => {
-        if (confirm("Vols reiniciar totes les dades i el progrés del curs?")) {
+        if (confirm("Vols reiniciar totes les dades, les decisions i tornar al saldo inicial de 100,00 €?")) {
           AppState.reset();
           renderDashboard();
+          if (typeof SoundFX !== "undefined") SoundFX.playClick();
+          alert("✓ Curs reiniciat amb èxit! Comences de nou amb 100,00 € al moneder.");
         }
       };
 
