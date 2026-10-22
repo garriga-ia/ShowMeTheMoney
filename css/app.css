@@ -77,22 +77,159 @@ html.font-lg, body.font-lg { --font-scale: 1.25; }
   font-size: calc(14px * var(--font-scale, 1)) !important;
 }
 .maxim {
+  font-size: calc(14.5px * var(--font-scale, 1)) !important;
+}
+
+/* Escalat global i mida ampliada per a caixes d'informació, contractes, calculadores i widgets */
+.chat-embed-card,
+.fineprint-card,
+.allocator-box,
+.celebration-box,
+.strategy-box,
+.cards-comparison-display,
+.contract-total-calc,
+.ant-calculator-box,
+.subscription-cleaner-box,
+.ticket-breakdown-card,
+.revolving-sim-box,
+.atm-box,
+.bizum-card-alert,
+.wallapop-sim-box,
+.negotiation-sim-box,
+.leisure-planner-box,
+.ad-fineprint-box,
+.depreciation-box,
+.shock-sim-box,
+.pay-yourself-box,
+.tae-calc-card,
+.tae-formula-box,
+.smart-calc-box,
+.red-flag-card,
+.etf-basket-box,
+.tax-wizard-box,
+.flatshare-box,
+.diploma-box {
+  font-size: calc(15.5px * var(--font-scale, 1)) !important;
+}
+
+.chat-embed-card h3,
+.contract-title,
+.box-title,
+.calc-title {
+  font-size: calc(17px * var(--font-scale, 1)) !important;
+  line-height: 1.35 !important;
+}
+
+.chat-embed-card .q {
+  font-size: calc(16.5px * var(--font-scale, 1)) !important;
+  line-height: 1.4 !important;
+}
+
+.chat-embed-card p,
+.chat-embed-card li {
+  font-size: calc(15px * var(--font-scale, 1)) !important;
+  line-height: 1.55 !important;
+}
+
+.note,
+p.note,
+.calc-summary-text,
+#calc-summary-text,
+.flag-explain,
+.ant-item-meta {
+  font-size: calc(14.5px * var(--font-scale, 1)) !important;
+  line-height: 1.5 !important;
+}
+
+.clause-item {
+  padding: 14px 12px !important;
+}
+
+.clause-header-row {
+  font-size: calc(15.5px * var(--font-scale, 1)) !important;
+}
+
+.clause-hidden {
+  font-size: calc(15px * var(--font-scale, 1)) !important;
+  line-height: 1.55 !important;
+}
+
+.clause-tag-cost {
+  font-size: calc(13.5px * var(--font-scale, 1)) !important;
+}
+
+.contract-badge {
+  font-size: calc(13px * var(--font-scale, 1)) !important;
+  padding: 4px 10px !important;
+}
+
+table.pay td {
+  font-size: calc(15.5px * var(--font-scale, 1)) !important;
+  padding: 8px 6px !important;
+}
+
+table.pay tr.sub td {
   font-size: calc(14px * var(--font-scale, 1)) !important;
 }
-.chat-embed-card {
-  font-size: calc(14px * var(--font-scale, 1));
+
+table.pay tr.tot td {
+  font-size: calc(17px * var(--font-scale, 1)) !important;
 }
+
+.pocket-label {
+  font-size: calc(15.5px * var(--font-scale, 1)) !important;
+}
+
+.pocket-amount {
+  font-size: calc(14px * var(--font-scale, 1)) !important;
+}
+
+.pocket-val {
+  font-size: calc(15.5px * var(--font-scale, 1)) !important;
+}
+
+.chip {
+  font-size: calc(13.5px * var(--font-scale, 1)) !important;
+  padding: 7px 13px !important;
+}
+
+.txtin,
+input.txtin {
+  font-size: calc(16px * var(--font-scale, 1)) !important;
+  min-height: 44px !important;
+  padding: 10px 12px !important;
+}
+
+.pout {
+  font-size: calc(15px * var(--font-scale, 1)) !important;
+  line-height: 1.5 !important;
+}
+
+.statement-row,
+.payroll-interactive-row,
+.ant-item,
+.sub-item-card,
+.plan-item-toggle,
+.traffic-case-card,
+.strategy-card,
+.save-card,
+.invest-card,
+.red-flag-item,
+.shock-card {
+  font-size: calc(15px * var(--font-scale, 1)) !important;
+}
+
 .step-anchor {
   font-size: calc(13px * var(--font-scale, 1)) !important;
 }
 .checklist-rule-item {
-  font-size: calc(13px * var(--font-scale, 1)) !important;
+  font-size: calc(13.5px * var(--font-scale, 1)) !important;
 }
 .checklist-modal-window {
-  font-size: calc(14px * var(--font-scale, 1));
+  font-size: calc(15px * var(--font-scale, 1));
 }
 .stat-pill {
-  font-size: calc(12px * var(--font-scale, 1));
+  font-size: calc(12.5px * var(--font-scale, 1));
 }
 
 /* Mode Clar d'alt contrast */

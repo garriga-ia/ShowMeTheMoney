@@ -120,9 +120,9 @@ const Capitol2 = {
       </div>
 
       <div class="contract-total-calc" id="contract-calc" style="display:none;">
-        <span style="font-size:12px; color:var(--mut); text-transform:uppercase; letter-spacing:0.05em;">Cost real dels auriculars en 2 anys</span>
+        <span style="color:var(--mut); text-transform:uppercase; letter-spacing:0.05em; font-weight:700;">Cost real dels auriculars en 2 anys</span>
         <div class="calc-price-big" style="color:var(--warn);" id="calc-final-price">0,00 €</div>
-        <p style="font-size:13px; margin:4px 0 0; color:var(--ink);" id="calc-summary-text"></p>
+        <p style="margin:6px 0 0; color:var(--ink);" id="calc-summary-text"></p>
       </div>
 
       <button class="btn" id="btn-done-step1" style="display:none; width:100%; margin-top:14px;">
@@ -381,7 +381,7 @@ const Capitol2 = {
         </div>
       </div>
 
-      <div style="font-size:12px; line-height:1.5; color:var(--ink); background:var(--bub); padding:10px; border-radius:10px; border:1px solid var(--line);">
+      <div style="line-height:1.5; color:var(--ink); background:var(--bub); padding:12px; border-radius:10px; border:1px solid var(--line); margin-top:10px;">
         💡 <b>Què està passant?</b> Com que pagues una quota petita, gairebé tot el que pagues cada mes se'n va en interessos al banc i gairebé no amortitzes el deute principal.
       </div>
 
@@ -554,8 +554,8 @@ const Capitol2 = {
 
       <div class="atm-box" style="margin-top:16px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-weight:700; font-size:13px;">🏧 La trampa dels caixers de festa a les 2 AM:</span>
-          <span class="badge" style="background:var(--warn2); color:var(--warn); font-size:11px; padding:2px 6px; border-radius:6px; font-weight:700;">Alerta comissió</span>
+          <span style="font-weight:700;">🏧 La trampa dels caixers de festa a les 2 AM:</span>
+          <span class="badge" style="background:var(--warn2); color:var(--warn); padding:3px 8px; border-radius:6px; font-weight:700;">Alerta comissió</span>
         </div>
         <p class="note" style="margin:6px 0 10px;">Vols treure efectiu per pagar un taxi o entrepà en un caixer que no és de la teva entitat:</p>
         <div class="atm-amount-btn-group">
@@ -563,7 +563,7 @@ const Capitol2 = {
           <button class="chip" data-atm="50">Treure 50 €</button>
           <button class="chip" data-atm="100">Treure 100 €</button>
         </div>
-        <div id="atm-calc-display" style="font-size:13px; padding:8px 10px; background:var(--bub); border-radius:8px; border:1px solid var(--line);">
+        <div id="atm-calc-display" style="padding:10px 12px; background:var(--bub); border-radius:8px; border:1px solid var(--line);">
           Comissió del caixer extern: <b>2,50 €</b>. Representa un <b>12,5 %</b> del que estàs traient! 💸
         </div>
       </div>
@@ -660,10 +660,10 @@ const Capitol2 = {
         A la teva edat, només targeta de dèbit. Si un banc et regala alguna cosa per obrir un compte, llegeix la lletra petita: el regal mai és de franc.
       </div>
 
-      <div style="margin-top:16px; padding:12px; border-radius:10px; background:var(--bub); border:1px solid var(--line);">
-        <h4 style="margin:0 0 6px; font-size:13px; color:var(--teal);">🎯 El teu repte real d'aquesta setmana:</h4>
-        <p style="font-size:12px; margin:0 0 8px; color:var(--ink);">Agafa la teva targeta (o demana a algú de casa que te n'ensenyi una) i completa aquestes dues comprovacions:</p>
-        <ul style="font-size:12px; padding-left:18px; margin:0; line-height:1.6; color:var(--mut);">
+      <div style="margin-top:16px; padding:14px; border-radius:10px; background:var(--bub); border:1px solid var(--line);">
+        <h4 style="margin:0 0 6px; color:var(--teal);">🎯 El teu repte real d'aquesta setmana:</h4>
+        <p style="margin:0 0 8px; color:var(--ink);">Agafa la teva targeta (o demana a algú de casa que te n'ensenyi una) i completa aquestes dues comprovacions:</p>
+        <ul style="padding-left:18px; margin:0; line-height:1.6; color:var(--mut);">
           <li>Comprova si a la cantonada frontal o posterior hi posa la paraula <b>DEBIT</b> o <b>CREDIT</b>.</li>
           <li>Obre l'app del banc al mòbil i busca l'opció «Caixers propers» per saber a quin caixer pots anar sense pagar cap comissió.</li>
         </ul>
