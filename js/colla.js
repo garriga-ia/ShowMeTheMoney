@@ -36,6 +36,7 @@ const COLLA = {
     role: "el calculador",
     tagline: "Fa números abans de gastar",
     color: "var(--n-marc)",
+    avatarImg: "img/avatars/marc.jpg",
     svg: makeAvatarSVG({bg: "#cfe3f2", skin: "#e8b98f", hair: "#3a2a20", style: "short", shirt: "#2f5d8a", glasses: true, mouth: "M20 32q4 2.5 8 0"})
   },
   nil: {
@@ -44,6 +45,7 @@ const COLLA = {
     role: "l'impulsiu",
     tagline: "FOMO i ganes de viure",
     color: "var(--n-nil)",
+    avatarImg: "img/avatars/nil.jpg",
     svg: makeAvatarSVG({bg: "#fde0b8", skin: "#c98f66", hair: "#1d1a18", style: "curly", shirt: "#d9531e", glasses: false, mouth: "M19 31q5 5 10 0"})
   },
   marta: {
@@ -52,6 +54,7 @@ const COLLA = {
     role: "la prudent",
     tagline: "Primer el coixí de seguretat",
     color: "var(--n-marta)",
+    avatarImg: "img/avatars/marta.jpg",
     svg: makeAvatarSVG({bg: "#d9efd2", skin: "#f0c9a6", hair: "#7a4a21", style: "long", shirt: "#3f8f5a", glasses: false, mouth: "M20 32q4 2 8 0"})
   },
   aina: {
@@ -60,6 +63,7 @@ const COLLA = {
     role: "la que s'ho mira tot",
     tagline: "Llegeix la lletra petita",
     color: "var(--n-aina)",
+    avatarImg: "img/avatars/aina.jpg",
     svg: makeAvatarSVG({bg: "#ecd9f2", skin: "#8d5a3b", hair: "#201512", style: "bun", shirt: "#7b3f98", glasses: false, mouth: "M20 32q4 1.5 8 0"})
   },
   pau: {
@@ -68,6 +72,7 @@ const COLLA = {
     role: "el que ja ha treballat",
     tagline: "Experiència real al món laboral",
     color: "var(--n-pau)",
+    avatarImg: "img/avatars/pau.jpg",
     svg: makeAvatarSVG({bg: "#f5e7c0", skin: "#d9a577", hair: "#8a5a2b", style: "short", shirt: "#b8891a", glasses: false, mouth: "M20 31q4 3 8 0"})
   },
   me: {
@@ -76,6 +81,15 @@ const COLLA = {
     role: "protagonista",
     tagline: "Pren les decisions",
     color: "var(--teal)",
+    avatarImg: "img/avatars/tu.jpg",
     svg: makeAvatarSVG({bg: "#f7e8a6", skin: "#e2ac82", hair: "#46352a", style: "short", shirt: "#0f766e", glasses: false, mouth: "M20 31q4 3 8 0"})
   }
 };
+
+// Generar propietat .avatar per a cada personatge (amb suport d'imatge 3D moderna i fallback SVG)
+Object.keys(COLLA).forEach(k => {
+  const p = COLLA[k];
+  p.avatar = p.avatarImg 
+    ? `<img src="${p.avatarImg}" class="avatar avatar-img" alt="${p.name}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-block';"><span class="avatar-fallback" style="display:none;">${p.svg}</span>`
+    : p.svg;
+});

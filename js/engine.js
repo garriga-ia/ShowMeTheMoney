@@ -82,7 +82,7 @@ const ChatEngine = {
     const msgEl = document.createElement("div");
     msgEl.className = `msg${isMe ? " me" : ""}`;
     msgEl.innerHTML = `
-      ${person.svg}
+      ${person.avatar || person.svg}
       <div class="bub">
         ${isMe ? "" : `<b class="n p-${who}">${person.name} <span class="role">· ${person.role}</span></b>`}
         ${text}

@@ -619,7 +619,7 @@
           const p = COLLA[key];
           const item = document.createElement("div");
           item.className = "colla-mini-pill";
-          item.innerHTML = `${p.svg} <span><b>${p.name}</b> <span style="color:var(--mut)">(${p.role})</span></span>`;
+          item.innerHTML = `${p.avatar || p.svg} <span><b>${p.name}</b> <span style="color:var(--mut)">(${p.role})</span></span>`;
           if (collaList) collaList.appendChild(item);
           if (collaWelcomeList) collaWelcomeList.appendChild(item.cloneNode(true));
         });
