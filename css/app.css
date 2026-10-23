@@ -1822,6 +1822,25 @@ body:not(.in-chapter) .nav-left {
   font-weight: 600;
 }
 
+/* Nota Spartan al peu de pàgina */
+.app-spartan-footer {
+  text-align: center;
+  padding: 32px 16px 24px;
+  font-size: 11.5px;
+  color: var(--mut);
+  opacity: 0.72;
+  letter-spacing: 0.25px;
+  user-select: none;
+}
+
+.checklist-spartan-note {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--mut);
+  opacity: 0.72;
+}
+
 /* ==========================================================================
    ESTILS D'IMPRESSIÓ / PDF OFICIAL (@media print)
    ========================================================================== */
@@ -1921,5 +1940,11 @@ body:not(.in-chapter) .nav-left {
     margin-top: 10px !important;
     padding: 6px 10px !important;
     page-break-inside: avoid !important;
+  }
+  .checklist-spartan-note {
+    color: #666 !important;
+    font-size: 8pt !important;
+    text-align: center !important;
+    margin-top: 8px !important;
   }
 }
