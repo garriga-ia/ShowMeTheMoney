@@ -34,13 +34,18 @@
 <body>
 
   <!-- BARRA GLOBAL SUPERIOR FIXADA (SEMPRE VISIBLE EN FER SCROLL) -->
-  <header class="navbar">
+  <header class="navbar" id="app-navbar">
+    <!-- 1. TÍTOL DE L'APP GRAN I A TOTA L'AMPLADA (PER SOBRE DE DIES I MONEDER A LA PÀGINA INICIAL) -->
+    <div class="nav-brand-banner" id="nav-brand-banner">
+      <button class="brand-banner-btn" id="btn-home-brand" type="button" title="ShowMeTheMoney · Tornar a la portada">
+        <span class="brand-title-main">💸 ShowMeTheMoney</span>
+        <span class="brand-title-sub">Finances per a Joves (16–18 anys)</span>
+      </button>
+    </div>
+
+    <!-- 2. BARRA D'ESTAT (DIES DE RATXA, MONEDER I OPCIONS DE CONFIGURACIÓ) -->
     <div class="nav-container">
       <div class="nav-left">
-        <button class="nav-brand" id="btn-home-brand" type="button" title="Inici">
-          <span class="nav-logo-badge">💸 ShowMeTheMoney</span>
-          <span class="nav-title">Finances Joves</span>
-        </button>
         <button class="nav-back-btn hide" id="btn-nav-back" type="button" title="Tornar a l'índex de capítols">
           ← Índex
         </button>
@@ -886,7 +891,13 @@
 
       function route() {
         const hash = window.location.hash || "#welcome";
-        if (hash.startsWith("#chapter-")) {
+        const inChapter = hash.startsWith("#chapter-");
+        document.body.classList.toggle("in-chapter", inChapter);
+
+        const brandBanner = document.getElementById("nav-brand-banner");
+        if (brandBanner) brandBanner.classList.toggle("hide", inChapter);
+
+        if (inChapter) {
           const id = Number(hash.replace("#chapter-", ""));
           if (!AppState.isUnlocked(id)) {
             const prevChap = CAPITOLS_DATA[id - 1];
@@ -898,14 +909,12 @@
           if (viewWelcome) viewWelcome.classList.remove("active");
           viewDash.classList.remove("active");
           viewPlayer.classList.add("active");
-          if (btnHomeBrand) btnHomeBrand.classList.add("hide");
           if (btnNavBack) btnNavBack.classList.remove("hide");
           startChapterPlayer(id);
         } else if (hash === "#dashboard") {
           if (viewWelcome) viewWelcome.classList.remove("active");
           viewPlayer.classList.remove("active");
           viewDash.classList.add("active");
-          if (btnHomeBrand) btnHomeBrand.classList.remove("hide");
           if (btnNavBack) btnNavBack.classList.add("hide");
           window.scrollTo(0, 0);
         } else {
@@ -913,7 +922,6 @@
           if (viewWelcome) viewWelcome.classList.add("active");
           viewDash.classList.remove("active");
           viewPlayer.classList.remove("active");
-          if (btnHomeBrand) btnHomeBrand.classList.remove("hide");
           if (btnNavBack) btnNavBack.classList.add("hide");
           window.scrollTo(0, 0);
         }
