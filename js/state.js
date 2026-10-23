@@ -36,7 +36,8 @@ const DEFAULT_STATE = {
     speed: 1, // 1, 2 o 99 (skip)
     sound: true,
     theme: "dark", // "dark" o "light"
-    fontSize: "lg" // "sm", "md", "lg" (per defecte "lg" per a màxima llegibilitat en mòbil)
+    fontSize: "lg", // "sm", "md", "lg" (per defecte "lg" per a màxima llegibilitat en mòbil)
+    notifications: false // Avisos diaris de ratxa (a les 20:00 h)
   }
 };
 
@@ -193,6 +194,16 @@ const AppState = {
     this.data.settings.sound = !this.data.settings.sound;
     this.save();
     return this.data.settings.sound;
+  },
+
+  toggleNotifications(enabled) {
+    if (typeof enabled === "boolean") {
+      this.data.settings.notifications = enabled;
+    } else {
+      this.data.settings.notifications = !this.data.settings.notifications;
+    }
+    this.save();
+    return this.data.settings.notifications;
   },
 
   setTheme(theme) {

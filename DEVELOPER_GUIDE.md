@@ -104,6 +104,10 @@ Si les imatges tarden a carregar o no estan disponibles, el navegador mostra aut
    - Mini calendari setmanal interactiu de 7 dies (Dilluns a Diumenge) amb flama animada.
    - Si l'usuari entra en dies consecutius, la ratxa augmenta (+1 dia); si passa més d'un dia sense entrar, es reinicia a 1 dia per fomentar la constància diària dels adolescents.
    - A la pantalla final de capítol (`ChatEngine.celebrate`), es reforça la fita amb la flama de la ratxa i el recordatori de tornar demà.
+3. **Notificacions Locals Diàries de Ratxa (20:00 h):**
+   - Activable voluntàriament des de la targeta de ratxa del tauler mitjançant la Web Notifications API.
+   - Gestionades a través del Service Worker (`sw.js`) amb gestor d'esdeveniments `notificationclick` (en clicar la notificació, enfoca o obre la finestra a `#dashboard`).
+   - Programades automàticament cada dia a les 20:00 h si l'usuari té el repte diari pendent: *«🔥 Nil i la colla t'esperen a ShowMeTheMoney! No deixis apagar la flama!»*.
 
 ---
 

@@ -190,6 +190,20 @@
 
         <!-- Indicador visual dels 7 dies de la setmana -->
         <div class="streak-week-row" id="dash-streak-week"></div>
+
+        <!-- Control d'avisos / Notificacions diàries de ratxa a les 20:00 h -->
+        <div class="streak-notif-box" id="streak-notif-box">
+          <div class="streak-notif-info">
+            <span class="notif-bell-icon" id="notif-bell-icon">🔔</span>
+            <div class="notif-text-cluster">
+              <span class="notif-title" id="notif-status-title">Avisos diaris de ratxa (20:00 h)</span>
+              <span class="notif-sub" id="notif-status-sub">T'avisem abans que s'apagui la flama per no perdre el teu progrés.</span>
+            </div>
+          </div>
+          <button id="btn-toggle-notif" class="notif-toggle-btn" type="button" title="Activar/Desactivar avisos diaris">
+            Activar 🔔
+          </button>
+        </div>
       </section>
 
       <!-- Bloc destacat: Què aprendràs aquí? (Les 12 Regles d'Or) -->
@@ -601,6 +615,10 @@
           }
           dashWeek.innerHTML = weekHtml;
         }
+
+        // 4. Actualitzar estat del botó d'avisos de ratxa
+        if (typeof updateNotifUI === "function") updateNotifUI();
+        if (typeof scheduleDailyReminderCheck === "function") scheduleDailyReminderCheck();
       }
 
       // Clic a la píndola de ratxa de la capçalera
@@ -1256,6 +1274,127 @@ PRINCIPI MESTRE: Els diners serveixen per comprar la teva tranquil·litat i inde
       });
 
       updatePwaUI();
+
+      // ======================================================================
+      // NOTIFICACIONS LOCALS DIÀRIES DE RATXA (20:00 H)
+      // ======================================================================
+      const btnToggleNotif = document.getElementById("btn-toggle-notif");
+      const notifStatusTitle = document.getElementById("notif-status-title");
+      const notifStatusSub = document.getElementById("notif-status-sub");
+
+      function updateNotifUI() {
+        const isNotifOn = AppState.get().settings.notifications === true;
+        const hasPermission = "Notification" in window && Notification.permission === "granted";
+
+        if (btnToggleNotif) {
+          if (isNotifOn && hasPermission) {
+            btnToggleNotif.textContent = "Activat ✓";
+            btnToggleNotif.classList.add("on");
+            if (notifStatusTitle) notifStatusTitle.textContent = "Avisos de ratxa activats (20:00 h)";
+            if (notifStatusSub) notifStatusSub.textContent = "✓ T'avisarem cada dia a les 20:00 h si encara no has fet el repte d'avui.";
+          } else {
+            btnToggleNotif.textContent = "Activar 🔔";
+            btnToggleNotif.classList.remove("on");
+            if (notifStatusTitle) notifStatusTitle.textContent = "Avisos diaris de ratxa (20:00 h)";
+            if (notifStatusSub) notifStatusSub.textContent = "T'avisem abans que s'apagui la flama per no perdre el teu progrés.";
+          }
+        }
+      }
+
+      async function requestNotifPermissionAndToggle() {
+        if (!("Notification" in window)) {
+          alert("Aquest navegador no admet notificacions web.");
+          return;
+        }
+
+        const currentlyOn = AppState.get().settings.notifications === true;
+
+        if (currentlyOn) {
+          AppState.toggleNotifications(false);
+          updateNotifUI();
+          if (typeof SoundFX !== "undefined" && SoundFX.playClick) SoundFX.playClick();
+          return;
+        }
+
+        let perm = Notification.permission;
+        if (perm !== "granted") {
+          perm = await Notification.requestPermission();
+        }
+
+        if (perm === "granted") {
+          AppState.toggleNotifications(true);
+          updateNotifUI();
+          if (typeof SoundFX !== "undefined" && SoundFX.playStreak) SoundFX.playStreak();
+
+          // Notificació de confirmació i prova immediata
+          if ("serviceWorker" in navigator) {
+            const reg = await navigator.serviceWorker.ready;
+            if (reg && reg.showNotification) {
+              reg.showNotification("🔥 Notificacions de ratxa activades!", {
+                body: "Molt bé! T'avisarem a les 20:00 h perquè la flama de ShowMeTheMoney continuï ben encesa.",
+                icon: "img/icon-192.png",
+                badge: "img/icon-192.png",
+                vibrate: [120, 60, 120],
+                tag: "smtm-welcome-notif"
+              });
+            }
+          }
+          scheduleDailyReminderCheck();
+        } else if (perm === "denied") {
+          alert("Has blocat les notificacions en aquest navegador. Pots activar-les des de la configuració de permisos del lloc.");
+        }
+      }
+
+      if (btnToggleNotif) {
+        btnToggleNotif.onclick = requestNotifPermissionAndToggle;
+      }
+
+      function scheduleDailyReminderCheck() {
+        if (!("Notification" in window) || Notification.permission !== "granted") return;
+        if (!AppState.get().settings.notifications) return;
+
+        const now = new Date();
+        const streakInfo = AppState.getStreak ? AppState.getStreak() : { isTodayDone: false, count: 1 };
+
+        const targetTime = new Date();
+        targetTime.setHours(20, 0, 0, 0);
+
+        const delayMs = targetTime.getTime() - now.getTime();
+        const reminderSentKey = `SMTM_REMINDER_SENT_${new Date().toISOString().split('T')[0]}`;
+        const alreadySentToday = localStorage.getItem(reminderSentKey);
+
+        if (now.getHours() >= 20 && !streakInfo.isTodayDone && !alreadySentToday) {
+          triggerStreakReminderNotification(streakInfo.count);
+          localStorage.setItem(reminderSentKey, "true");
+        } else if (delayMs > 0) {
+          clearTimeout(window._dailyReminderTimer);
+          window._dailyReminderTimer = setTimeout(() => {
+            const currentStreak = AppState.getStreak ? AppState.getStreak() : { isTodayDone: false, count: 1 };
+            if (!currentStreak.isTodayDone) {
+              triggerStreakReminderNotification(currentStreak.count);
+              localStorage.setItem(reminderSentKey, "true");
+            }
+          }, delayMs);
+        }
+      }
+
+      async function triggerStreakReminderNotification(count) {
+        if ("serviceWorker" in navigator) {
+          const reg = await navigator.serviceWorker.ready;
+          if (reg && reg.showNotification) {
+            reg.showNotification("🔥 Nil i la colla t'esperen a ShowMeTheMoney!", {
+              body: `No deixis apagar la flama! Entra abans de mitjanit per mantenir la teva ratxa de ${count} ${count === 1 ? "dia" : "dies"}.`,
+              icon: "img/icon-192.png",
+              badge: "img/icon-192.png",
+              vibrate: [200, 100, 200],
+              tag: "smtm-daily-streak-reminder"
+            });
+          }
+        }
+      }
+
+      updateNotifUI();
+      scheduleDailyReminderCheck();
 
       // Inicialitzar vista segons hash actual
       route();

@@ -3,7 +3,7 @@
  * Permet instal·lar l'aplicació com a nativa i funcionar 100% offline sense connexió.
  */
 
-const CACHE_NAME = 'smtm-v1.0.3';
+const CACHE_NAME = 'smtm-v1.0.4';
 
 const PRECACHE_ASSETS = [
   './',
@@ -91,6 +91,23 @@ self.addEventListener('fetch', event => {
 
       // Retornar la versió en cau immediatament si existeix; sinó esperar la xarxa
       return cachedResponse || fetchPromise;
+    })
+  );
+});
+
+// 4. Gestió del clic a la notificació diària de ratxa
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
+      for (const client of clientList) {
+        if (client.url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow('./#dashboard');
+      }
     })
   );
 });
