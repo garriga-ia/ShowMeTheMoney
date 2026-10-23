@@ -1,3 +1,9 @@
+<!--
+  ⚠️ ATENCIÓ: FITXER GENERAT AUTOMÀTICAMENT A PARTIR DE js/data/capitols-index.js
+  NO EDITIS MANUALMENT AQUEST FITXER. FONT ÚNICA DE CONTINGUT: js/data/capitols-index.js
+  Per regenerar, executa: node scripts/sync-md.js
+-->
+
 /**
  * CAPITOLS-INDEX.JS - Registre dels 12 capítols en 4 blocs pedagògics
  */

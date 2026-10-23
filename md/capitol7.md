@@ -1,3 +1,9 @@
+<!--
+  ⚠️ ATENCIÓ: FITXER GENERAT AUTOMÀTICAMENT A PARTIR DE js/data/capitol7.js
+  NO EDITIS MANUALMENT AQUEST FITXER. FONT ÚNICA DE CONTINGUT: js/data/capitol7.js
+  Per regenerar, executa: node scripts/sync-md.js
+-->
+
 /**
  * CAPITOL7.JS - Guió i lògica interactiva del Capítol 7: "El coixí: i si em trenco el mòbil?"
  */

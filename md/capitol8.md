@@ -1,3 +1,9 @@
+<!--
+  ⚠️ ATENCIÓ: FITXER GENERAT AUTOMÀTICAMENT A PARTIR DE js/data/capitol8.js
+  NO EDITIS MANUALMENT AQUEST FITXER. FONT ÚNICA DE CONTINGUT: js/data/capitol8.js
+  Per regenerar, executa: node scripts/sync-md.js
+-->
+
 /**
  * CAPITOL8.JS - Guió i lògica interactiva del Capítol 8: "Metes: d'un viatge al carnet de cotxe"
  */

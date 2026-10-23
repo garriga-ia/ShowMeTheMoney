@@ -7,9 +7,10 @@
 ## 🎯 1. Visió General i Especificacions
 
 - **Nom del projecte:** `ShowMeTheMoney` (Curs de Finances per a Joves de 16 a 18 anys).
-- **Format:** Single Page Application (SPA) pura en HTML5, CSS3 i Vanilla JavaScript (sense frameworks ni dependències `npm`).
+- **Format:** Progressive Web App (PWA) instal·lable en HTML5, CSS3 i Vanilla JavaScript (sense frameworks ni dependències `npm`).
+- **Suport Offline:** 100% autònom mitjançant Service Worker (`sw.js`) i precache d'actius.
 - **Públic objectiu:** Adolescents de 16 a 18 anys que entren al món laboral o gestionen els seus primers diners.
-- **Enfocament:** 100% Mobile-first (optimitzat per a pantalla de telèfon mòbil en vertical).
+- **Enfocament:** 100% Mobile-first (optimitzat per a pantalla de telèfon mòbil en vertical, pantalla completa `standalone`).
 - **Desplegament:**
   - Repositori privat a GitHub: `https://github.com/garriga-ia/ShowMeTheMoney`
   - Desplegament automàtic a Vercel connectat a la branca `main`.
@@ -90,6 +91,20 @@ Si les imatges tarden a carregar o no estan disponibles, el navegador mostra aut
   - Situat a la part inferior de `#view-dashboard` (`.btn-reset-clean`), neteja `localStorage` i restaura el saldo a `100,00 €`.
   - En arrencar el Capítol 1, s'assegura sempre el saldo base de `100,00 €` per si s'ha rejuga.
 
+### 🔒 Desbloqueig Seqüencial i Sistema de Ratxa (Streak 🔥)
+
+1. **Desbloqueig Seqüencial Estricte:**
+   - El **Capítol 1** sempre està desbloquejat.
+   - El **Capítol N** s'activa **únicament quan s'ha completat el Capítol N-1** (`AppState.isUnlocked(n) === true`).
+   - Si un usuari intenta forçar la navegació a `#chapter-X` abans d'hora, el router el redirigeix al Tauler i mostra un avís emergent (`#locked-chapter-toast`) amb so de candau (`SoundFX.playLock()`).
+   - Al tauler, el capítol actiu que toca jugar es destaca amb la classe `.active-cur` i l'etiqueta `🎯 El teu següent repte`. Els capítols superats es poden rejugar lliurement (`Rejugar ↺`).
+2. **Sistema de Fidelització per Ratxa (Streak):**
+   - Comptador de dies consecutius aprenent finances (`AppState.getStreak()`).
+   - Píndola fixa a la capçalera (`.stat-pill.streak`) i targeta dedicada al tauler (`.dash-streak-card`).
+   - Mini calendari setmanal interactiu de 7 dies (Dilluns a Diumenge) amb flama animada.
+   - Si l'usuari entra en dies consecutius, la ratxa augmenta (+1 dia); si passa més d'un dia sense entrar, es reinicia a 1 dia per fomentar la constància diària dels adolescents.
+   - A la pantalla final de capítol (`ChatEngine.celebrate`), es reforça la fita amb la flama de la ratxa i el recordatori de tornar demà.
+
 ---
 
 ## 📱 5. Tipografia i Disseny Mòbil-First
@@ -114,6 +129,8 @@ Tots els widgets incrustats al xat (`.chat-embed-card`, `.fineprint-card`, `.cla
 ```
 C:\aplicacions\adri\
 ├── index.html                   # HTML principal (Vistes #welcome, #dashboard, #player, modal)
+├── manifest.webmanifest         # Manifest PWA (nom, colors, icones, standalone)
+├── sw.js                        # Service Worker (precache estàtic i suport 100% offline)
 ├── css/
 │   ├── app.css                  # Estils globals, navbar fixada, tipografia escalable, dashboard i portada
 │   ├── chat.css                 # Estils del reproductor de xat continu, bombolles, missatges i avatars
@@ -123,7 +140,8 @@ C:\aplicacions\adri\
 │   ├── sound.js                 # Web Audio API (síntesi de xip, monedes, errors i fanfàrria)
 │   ├── colla.js                 # Personatges, rutes d'imatges 3D i generador SVG de fallback
 │   ├── engine.js                # ChatEngine (control del feed de xat, typing, animació de diners)
-│   └── data/
+│   └── data/                    # ⭐️ FONT ÚNICA DE VERITAT DE CONTINGUT (SOLS .JS)
+│       ├── capitols-index.js    # Índex pedagògic, blocs i metadades dels 12 capítols
 │       ├── capitol1.js          # El primer sou (nòmina, brut vs net, 3 bosses, hores de feina)
 │       ├── capitol2.js          # Bancs, comptes i targetes (lletra petita, dèbit vs crèdit, revolving)
 │       ├── capitol3.js          # Estafes digitals i Bizum (Wallapop, phishing)
@@ -136,27 +154,68 @@ C:\aplicacions\adri\
 │       ├── capitol10.js         # Contracte laboral d'adult i nòmina real
 │       ├── capitol11.js         # Declaració de la Renda i 2 pagadors
 │       └── capitol12.js         # Emancipació i regla del 30% al lloguer
+├── md/                          # Fitxers Markdown generats automàticament (NO editar a mà!)
+├── scripts/
+│   └── sync-md.js               # Script per sincronitzar automàticament js/data/*.js cap a md/
 └── img/
+    ├── icon-192.png             # Icona PWA estàndard 192x192
+    ├── icon-512.png             # Icona PWA d'alta resolució 512x512
+    ├── icon-maskable.png        # Icona adaptativa (maskable) per a Android
+    ├── apple-touch-icon.png     # Icona optimitzada per a iOS Safari (180x180)
+    ├── icon.svg                 # Vectorial SVG de màxima fidelitat
     ├── avatars/                 # Imatges 3D dels personatges (marc, nil, marta, aina, pau, tu)
     └── og-show-me-the-money.png # Targeta Open Graph per a xarxes socials i WhatsApp
 ```
 
 ---
 
-## ⚙️ 7. Pautes per al Manteniment i Futurs Desenvolupaments
+## 📲 8. Arquitectura PWA (Progressive Web App) i Suport Offline
 
-1. **Comprovar la sintaxi abans de fer commit:**
+1. **Instal·lació nativa a la pantalla d'inici:**
+   - Mitjançant `manifest.webmanifest`, l'aplicació s'obre en mode `display: standalone` sense les barres del navegador, com si fos descarregada d'una botiga d'aplicacions.
+   - S'ofereix el botó interactiu `📲 Instal·lar com a App` connectat a l'esdeveniment estàndard `beforeinstallprompt` (Chrome, Edge, Android) i amb guia gràfica per a Safari a iOS.
+2. **Estratègia de memòria cau (`sw.js`):**
+   - Durant l'esdeveniment `install`, el Service Worker precatxeja els 35 recursos essencials del curs.
+   - Estratègia híbrida *Stale-While-Revalidate* + *Cache-First*: l'aplicació s'obre instantàniament des de la memòria del telèfon i actualitza el contingut transparentment si hi ha connexió activa.
+   - Si no hi ha cobertura o està en mode avió, tot el curs és **100% jugable offline**.
+
+---
+
+## ⭐️ 7. Font Única de Contingut i Regla d'Or d'Edició
+
+> **REGLA D'OR:** MAI s'editen dues versions d'un capítol.
+> L'aplicació web (SPA) només necessita i només executa els fitxers `.js` dins de `js/data/`.
+> 
+> - **Font Única de Veritat:** `js/data/capitolX.js` i `js/data/capitols-index.js`.
+> - **Prohibit:** Crear o mantenir fitxers `.md` manuals dins de `js/data/` o editar directament a `md/`.
+> - **Sincronització de documentació:** Per regenerar la carpeta `md/` a partir del codi JavaScript oficial, s'executa simplement:
+>   ```powershell
+>   npm run sync-md
+>   # o directament: node scripts/sync-md.js
+>   ```
+
+---
+
+## ⚙️ 9. Pautes per al Manteniment i Futurs Desenvolupaments
+
+1. **Editar contingut:** Modificar únicament `js/data/capitolX.js`.
+2. **Sincronitzar markdown (opcional):**
    ```powershell
-   node -c js/state.js js/sound.js js/colla.js js/engine.js js/data/capitol*.js
+   node scripts/sync-md.js
    ```
-2. **Pujar canvis a producció:**
+3. **Comprovar la sintaxi abans de fer commit:**
+   ```powershell
+   npm run check
+   # o: node -c js/state.js js/sound.js js/colla.js js/engine.js js/data/capitols-index.js js/data/capitol*.js
+   ```
+4. **Pujar canvis a producció:**
    ```powershell
    git add .
    git commit -m "Descripció clara dels canvis"
    git push origin main
    ```
    *Vercel detecta automàticament el `push` i actualitza la web en 15-20 segons.*
-3. **Mantenir la integritat del disseny mòbil:**
+5. **Mantenir la integritat del disseny mòbil:**
    - Evitar marges o amplades fixes superiors a `100vw`.
    - Assegurar que qualsevol botó o element tàctil tingui com a mínim 44px d'alçada.
    - Fer servir sempre `var(--font-scale, 1)` per a qualsevol nova mida de text.

@@ -1,3 +1,9 @@
+<!--
+  ⚠️ ATENCIÓ: FITXER GENERAT AUTOMÀTICAMENT A PARTIR DE js/data/capitol3.js
+  NO EDITIS MANUALMENT AQUEST FITXER. FONT ÚNICA DE CONTINGUT: js/data/capitol3.js
+  Per regenerar, executa: node scripts/sync-md.js
+-->
+
 /**
  * CAPITOL3.JS - Guió i lògica interactiva del Capítol 3: "M'arriba un bizum d'un desconegut"
  */

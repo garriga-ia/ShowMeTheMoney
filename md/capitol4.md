@@ -1,3 +1,9 @@
+<!--
+  ⚠️ ATENCIÓ: FITXER GENERAT AUTOMÀTICAMENT A PARTIR DE js/data/capitol4.js
+  NO EDITIS MANUALMENT AQUEST FITXER. FONT ÚNICA DE CONTINGUT: js/data/capitol4.js
+  Per regenerar, executa: node scripts/sync-md.js
+-->
+
 /**
  * CAPITOL4.JS - Guió i lògica interactiva del Capítol 4: "On se me'n va la pasta?"
  */

@@ -440,6 +440,40 @@ body {
   font-weight: 800;
 }
 
+.stat-pill.streak {
+  color: #ff9800;
+  background: rgba(255, 152, 0, 0.14);
+  border: 1.5px solid rgba(255, 152, 0, 0.55);
+  font-size: calc(12px * var(--font-scale, 1));
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stat-pill.streak:hover {
+  transform: translateY(-1px);
+  border-color: #ff9800;
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.35);
+}
+
+.stat-pill.streak.active {
+  box-shadow: 0 0 8px rgba(255, 152, 0, 0.28);
+}
+
+.stat-pill.streak .streak-icon {
+  font-size: 13px;
+  display: inline-block;
+  animation: pulse-flame 2s infinite ease-in-out;
+}
+
+@keyframes pulse-flame {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.22); }
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -838,14 +872,29 @@ body {
 }
 
 .dash-card.locked {
-  opacity: 0.6;
-  cursor: not-allowed;
+  opacity: 0.65;
+  cursor: pointer;
+  border-style: dashed;
+  background: var(--card);
 }
 
 .dash-card.locked:hover {
   background: var(--card);
-  border-color: var(--line);
+  border-color: rgba(255, 122, 107, 0.45);
   transform: none;
+}
+
+.dash-card.locked .dash-num {
+  background: rgba(148, 163, 184, 0.1);
+  border-color: var(--line);
+  color: var(--mut);
+  font-size: 13px;
+}
+
+.dash-card.active-cur {
+  border-color: var(--teal);
+  background: linear-gradient(135deg, var(--card) 0%, rgba(47, 230, 167, 0.08) 100%);
+  box-shadow: 0 0 16px rgba(47, 230, 167, 0.16);
 }
 
 .dash-num {
@@ -926,6 +975,234 @@ body {
   color: var(--mut);
 }
 
+.tag-locked {
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--mut);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.tag-cur {
+  background: var(--teal2);
+  color: var(--teal);
+  border: 1px solid var(--teal);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   TARGETA DE RATXA DIÀRIA (STREAK CARD) AL DASHBOARD
+   ========================================================================== */
+.dash-streak-card {
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.08) 0%, rgba(255, 87, 34, 0.04) 100%), var(--card);
+  border: 1.5px solid rgba(255, 152, 0, 0.35);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin: 16px 0 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.dash-streak-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff9800, #ff5722, #e6c25a);
+}
+
+.streak-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.streak-card-flame {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flame-symbol {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 8px rgba(255, 152, 0, 0.45));
+  animation: pulse-flame 2s infinite ease-in-out;
+}
+
+.streak-days-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.streak-big-num {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ff9800;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.streak-label {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--mut);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.streak-badge-record {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #e6c25a;
+  background: rgba(230, 194, 90, 0.12);
+  border: 1px solid rgba(230, 194, 90, 0.3);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.streak-motivation {
+  margin: 12px 0 14px;
+  font-size: calc(14px * var(--font-scale, 1));
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.streak-week-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  background: var(--bub);
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+
+.streak-day-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  padding: 4px 2px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mut);
+}
+
+.streak-day-dot.day-today {
+  background: rgba(255, 152, 0, 0.15);
+  border: 1px solid rgba(255, 152, 0, 0.4);
+  color: #ff9800;
+}
+
+.streak-day-dot.day-done .day-dot-icon {
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.streak-day-dot.day-today.day-done .day-dot-icon {
+  animation: pulse-flame 1.8s infinite;
+}
+
+.streak-day-dot.day-today.day-pending .day-dot-icon {
+  color: #ff9800;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   TOAST DE CAPÍTOL BLOQUEJAT (ALERT EMERGENT)
+   ========================================================================== */
+.locked-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #181d22;
+  border: 1.5px solid #ff7a6b;
+  color: #ffffff;
+  padding: 12px 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 122, 107, 0.25);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 90vw;
+  width: 380px;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.locked-toast.toast-enter {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.locked-toast.toast-exit {
+  opacity: 0;
+  transform: translateX(-50%) translateY(12px);
+}
+
+.toast-lock-badge {
+  font-size: 24px;
+  flex: none;
+}
+
+.toast-lock-body {
+  flex: 1;
+}
+
+.toast-lock-title {
+  font-weight: 800;
+  font-size: 14px;
+  color: #ff7a6b;
+}
+
+.toast-lock-desc {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* Caixa de ratxa a la celebració final */
+.streak-celebration-box {
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.12) 0%, rgba(255, 87, 34, 0.08) 100%);
+  border: 1.5px solid rgba(255, 152, 0, 0.45);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 12px auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  max-width: 440px;
+}
+
+.streak-celebration-box .streak-flame-anim {
+  font-size: 28px;
+  animation: pulse-flame 1.5s infinite ease-in-out;
+  flex: none;
+}
+
+.streak-celebration-box .streak-heading {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ff9800;
+}
+
+.streak-celebration-box .streak-sub {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
 .dash-card-desc {
   font-size: 13px;
   color: var(--mut);
@@ -986,6 +1263,42 @@ body {
   border-radius: 50%;
   object-fit: cover;
   flex: none;
+}
+
+/* Caixa d'instal·lació PWA com a app nativa */
+.dash-pwa-box {
+  background: linear-gradient(135deg, rgba(47, 230, 167, 0.1) 0%, rgba(13, 148, 136, 0.04) 100%), var(--card);
+  border: 1.5px solid var(--teal);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 16px rgba(47, 230, 167, 0.12);
+}
+
+.dash-pwa-box .pwa-box-icon {
+  font-size: 28px;
+  flex: none;
+}
+
+.dash-pwa-box .pwa-box-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dash-pwa-box .pwa-box-info b {
+  font-size: 14px;
+  color: var(--teal);
+}
+
+.dash-pwa-box .pwa-box-info span {
+  font-size: 12px;
+  color: var(--mut);
+  line-height: 1.35;
 }
 
 /* Caixa de gestió i reinici del Dashboard */

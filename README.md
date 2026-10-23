@@ -10,7 +10,8 @@
 Una aplicació web interactiva, moderna i gratuïta pensada perquè adolescents i joves d'entre 16 i 18 anys adquireixin una educació financera sòlida, pràctica i emocionalment realista:
 - **Format xat interactiu continu**: La història avança mitjançant converses de grup amb personatges reals (Marc, Nil, Marta, Aina i Pau).
 - **Conseqüències reals**: Abans de donar la moralina teòrica, les decisions equivocades tenen pèrdues de diners reals al moneder virtual de l'usuari amb animacions i efectes de so.
-- **100% autònom i estàtic**: Funciona sense dependències externes, sense bases de dades i sense recollida de dades privades (el progrés es desa al `localStorage` del dispositiu).
+- **Progressive Web App (PWA) instal·lable**: Es pot instal·lar a la pantalla d'inici de qualsevol telèfon (Android i iOS) com si fos una app nativa, sense necessitat de passar per la App Store o Google Play.
+- **100% autònom i Offline**: Gràcies al Service Worker (`sw.js`), un cop oberta per primer cop, l'aplicació funciona completament sense connexió a internet ni gastar dades mòbils.
 - **Web Audio API**: Sons sintetitzats en temps real per guanys, pèrdues i celebracions.
 - **Accessibilitat**: Mode fosc / clar d'alt contrast i selector de mida de lletra escalable (A- / Aa / A+).
 - **Recursos descarregables**: Inclou el **Txec-list Financer als 18 anys** llist per imprimir en 1 pàgina A4 o guardar en PDF.
@@ -49,6 +50,22 @@ Una aplicació web interactiva, moderna i gratuïta pensada perquè adolescents 
   - Motor reactiu de xat (`ChatEngine`).
   - Web Audio API per síntesi sonora nativa.
   - `localStorage` per persistència d'estat local (`AppState`).
+  - **Font única de contingut**: Els capítols es mantenen exclusivament a `js/data/capitol*.js`.
+
+---
+
+## 💻 Desenvolupament i Manteniment
+
+- **Comprovar sintaxi JavaScript:**
+  ```bash
+  npm run check
+  ```
+- **Sincronitzar fitxers Markdown a `md/` des de la font única:**
+  ```bash
+  npm run sync-md
+  ```
+
+---
 
 ---
 

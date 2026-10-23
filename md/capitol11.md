@@ -1,3 +1,9 @@
+<!--
+  ⚠️ ATENCIÓ: FITXER GENERAT AUTOMÀTICAMENT A PARTIR DE js/data/capitol11.js
+  NO EDITIS MANUALMENT AQUEST FITXER. FONT ÚNICA DE CONTINGUT: js/data/capitol11.js
+  Per regenerar, executa: node scripts/sync-md.js
+-->
+
 /**
  * CAPITOL11.JS - Guió i lògica interactiva del Capítol 11: "La Renda sense por"
  */

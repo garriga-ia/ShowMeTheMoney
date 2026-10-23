@@ -20,6 +20,11 @@
   <meta name="twitter:image" content="img/og-show-me-the-money.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ShowMeTheMoney">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="img/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💸</text></svg>">
 
   <link rel="stylesheet" href="css/app.css">
@@ -42,6 +47,11 @@
       </div>
 
       <div class="nav-right-cluster">
+        <div class="stat-pill streak" id="stat-streak-pill" title="Dies consecutius aprenent finances (Ratxa)">
+          <span class="streak-icon">🔥</span>
+          <span id="stat-streak">1 dia</span>
+        </div>
+
         <div class="stat-pill wallet" id="stat-wallet-pill" title="Coixí virtual estalviat">
           <span class="wallet-icon">🛡️</span>
           <span id="stat-wallet">0,00 €</span>
@@ -56,6 +66,9 @@
       </div>
     </div>
   </header>
+
+  <!-- TOAST EMERGENT DE CAPÍTOL BLOQUEJAT -->
+  <div id="locked-chapter-toast" class="locked-toast hide" role="alert" aria-live="polite"></div>
 
   <!-- GRAN BANNER D'IMPACTE MONETARI (VISIBLE DIRECTAMENT AL MÒBIL) -->
   <div id="money-banner-overlay" class="money-banner-overlay hide" aria-live="assertive">
@@ -121,6 +134,9 @@
           <button id="btn-enter-course" class="btn gold btn-pulse" type="button" style="font-size:15px; padding:14px 18px; font-weight:800; width:100%; justify-content:center;">
             🚀 Començar el Curs (Veure Capítols) →
           </button>
+          <button id="btn-pwa-install-welcome" class="btn pwa-install-btn hide" type="button" style="justify-content:center; background: rgba(47, 230, 167, 0.12); border: 1.5px solid var(--teal); color: var(--teal); font-weight: 800;">
+            📲 Instal·lar com a App al Mòbil (Offline)
+          </button>
           <button id="btn-open-rules-welcome" class="btn ghost" type="button" style="justify-content:center;">
             📄 Veure les 12 Regles d'Or (Txec-list)
           </button>
@@ -149,6 +165,27 @@
         <h1 class="dash-title">Aprèn a gestionar la pasta sense rotllos</h1>
         <p class="dash-desc">12 capítols pràctics de 8 minuts en format xat interactiu. Pren decisions reals amb la teva colla.</p>
       </div>
+
+      <!-- Targeta de Ratxa Diària (Comptador de dies seguits per fidelització) -->
+      <section class="dash-streak-card" id="dash-streak-card">
+        <div class="streak-card-top">
+          <div class="streak-card-flame">
+            <span class="flame-symbol">🔥</span>
+            <div class="streak-days-display">
+              <span class="streak-big-num" id="dash-streak-num">1</span>
+              <span class="streak-label" id="dash-streak-label">dia de ratxa</span>
+            </div>
+          </div>
+          <div class="streak-badge-record" id="dash-streak-record">🏆 Rècord: 1 dia</div>
+        </div>
+
+        <p class="streak-motivation" id="dash-streak-msg">
+          Completa el teu capítol d'avui per mantenir la flama encesa!
+        </p>
+
+        <!-- Indicador visual dels 7 dies de la setmana -->
+        <div class="streak-week-row" id="dash-streak-week"></div>
+      </section>
 
       <!-- Bloc destacat: Què aprendràs aquí? (Les 12 Regles d'Or) -->
       <section class="dash-learn-summary-box">
@@ -226,6 +263,18 @@
         </div>
         <div class="colla-avatars-row" id="colla-avatars-list"></div>
       </section>
+
+      <!-- Caixa d'instal·lació PWA -->
+      <div class="dash-pwa-box hide" id="dash-pwa-box">
+        <div class="pwa-box-icon">📲</div>
+        <div class="pwa-box-info">
+          <b>Instal·la ShowMeTheMoney al teu telèfon</b>
+          <span>Icona a la pantalla d'inici com una app nativa i accés 100% offline sense consumir dades.</span>
+        </div>
+        <button id="btn-pwa-install-dash" class="btn gold pwa-install-btn" type="button" style="padding: 9px 14px; font-size: 13px; font-weight: 800; white-space: nowrap;">
+          Instal·lar
+        </button>
+      </div>
 
       <!-- Caixa de gestió de partida: Reiniciar curs -->
       <div class="dash-reset-box">
@@ -440,6 +489,8 @@
       const btnNavBack = document.getElementById("btn-nav-back");
       const statWallet = document.getElementById("stat-wallet");
       const statWalletPill = document.getElementById("stat-wallet-pill");
+      const statStreak = document.getElementById("stat-streak");
+      const statStreakPill = document.getElementById("stat-streak-pill");
       const walletFloatBadge = document.getElementById("wallet-float-badge");
       const blocksContainer = document.getElementById("course-blocks-container");
       const collaList = document.getElementById("colla-avatars-list");
@@ -480,9 +531,127 @@
         requestAnimationFrame(update);
       }
 
+      // Actualitzar indicador de ratxa (Streak) a la navbar i a la targeta del tauler
+      function updateStreakUI() {
+        if (!AppState.getStreak) return;
+        const streakInfo = AppState.getStreak();
+
+        // 1. Píndola de la navbar
+        if (statStreak) {
+          statStreak.textContent = `${streakInfo.count} ${streakInfo.count === 1 ? "dia" : "dies"}`;
+        }
+        if (statStreakPill) {
+          statStreakPill.classList.toggle("active", streakInfo.count > 0);
+        }
+
+        // 2. Targeta de ratxa del tauler
+        const dashNum = document.getElementById("dash-streak-num");
+        const dashLabel = document.getElementById("dash-streak-label");
+        const dashRecord = document.getElementById("dash-streak-record");
+        const dashMsg = document.getElementById("dash-streak-msg");
+        const dashWeek = document.getElementById("dash-streak-week");
+
+        if (dashNum) dashNum.textContent = streakInfo.count;
+        if (dashLabel) dashLabel.textContent = streakInfo.count === 1 ? "dia de ratxa" : "dies de ratxa";
+        if (dashRecord) dashRecord.textContent = `🏆 Rècord personal: ${streakInfo.best} ${streakInfo.best === 1 ? "dia" : "dies"}`;
+
+        if (dashMsg) {
+          if (streakInfo.isTodayDone) {
+            dashMsg.innerHTML = `✨ <b>Molt bona feina!</b> Has completat el teu objectiu d'avui. Torna demà per sumar el dia <b>${streakInfo.count + 1}</b> i desbloquejar el següent capítol!`;
+          } else {
+            dashMsg.innerHTML = `⚡ <b>Mantingues viva la flama:</b> Juga el teu repte d'avui per no perdre la ratxa de <b>${streakInfo.count} ${streakInfo.count === 1 ? "dia" : "dies"}</b>!`;
+          }
+        }
+
+        // 3. Mini calendari setmanal de 7 dies
+        if (dashWeek) {
+          const dayNames = ["Dl", "Dt", "Dc", "Dj", "Dv", "Ds", "Dg"];
+          const now = new Date();
+          const currentDayIdx = (now.getDay() + 6) % 7; // Dilluns = 0 ... Diumenge = 6
+
+          let weekHtml = "";
+          for (let i = 0; i < 7; i++) {
+            const isPast = i < currentDayIdx;
+            const isCurrent = i === currentDayIdx;
+            const isCompleted = isCurrent ? streakInfo.isTodayDone : isPast;
+
+            let statusClass = "";
+            let icon = dayNames[i];
+            if (isCurrent) {
+              statusClass = isCompleted ? "day-today day-done" : "day-today day-pending";
+              icon = isCompleted ? "🔥" : dayNames[i];
+            } else if (isPast) {
+              statusClass = "day-done";
+              icon = "✓";
+            } else {
+              statusClass = "day-future";
+            }
+
+            weekHtml += `
+              <div class="streak-day-dot ${statusClass}" title="${dayNames[i]}">
+                <span class="day-dot-name">${dayNames[i]}</span>
+                <span class="day-dot-icon">${icon}</span>
+              </div>
+            `;
+          }
+          dashWeek.innerHTML = weekHtml;
+        }
+      }
+
+      // Clic a la píndola de ratxa de la capçalera
+      if (statStreakPill) {
+        statStreakPill.onclick = () => {
+          if (window.location.hash !== "#dashboard") {
+            window.location.hash = "#dashboard";
+          }
+          const streakCard = document.getElementById("dash-streak-card");
+          if (streakCard) {
+            streakCard.scrollIntoView({ behavior: "smooth", block: "center" });
+            streakCard.style.transition = "transform 0.3s ease, box-shadow 0.3s ease";
+            streakCard.style.boxShadow = "0 0 26px rgba(255, 152, 0, 0.55)";
+            setTimeout(() => {
+              streakCard.style.boxShadow = "";
+            }, 1600);
+          }
+          if (typeof SoundFX !== "undefined" && SoundFX.playStreak) {
+            SoundFX.playStreak();
+          }
+        };
+      }
+
+      // Notificació visual i sonora de capítol bloquejat
+      function showLockedToast(chapterNum, prevTitle) {
+        if (typeof SoundFX !== "undefined" && SoundFX.playLock) SoundFX.playLock();
+        if (typeof ChatEngine !== "undefined" && ChatEngine.triggerHaptic) ChatEngine.triggerHaptic();
+
+        const toast = document.getElementById("locked-chapter-toast");
+        if (!toast) return;
+        toast.innerHTML = `
+          <div class="toast-lock-badge">🔒</div>
+          <div class="toast-lock-body">
+            <div class="toast-lock-title">Capítol ${chapterNum} bloquejat!</div>
+            <div class="toast-lock-desc">Completa primer el <b>Capítol ${chapterNum - 1}</b> («${prevTitle}») per desbloquejar-lo.</div>
+          </div>
+        `;
+        toast.classList.remove("hide");
+        toast.classList.remove("toast-exit");
+        toast.classList.add("toast-enter");
+
+        clearTimeout(window._lockToastTimer);
+        window._lockToastTimer = setTimeout(() => {
+          toast.classList.remove("toast-enter");
+          toast.classList.add("toast-exit");
+          setTimeout(() => {
+            toast.classList.add("hide");
+            toast.classList.remove("toast-exit");
+          }, 300);
+        }, 3400);
+      }
+
       // Actualitzar estadístiques globals
       AppState.subscribe(state => {
         animateWalletNumber(state.virtualSavings);
+        updateStreakUI();
         renderDashboard();
       });
 
@@ -630,6 +799,7 @@
       function renderDashboard() {
         blocksContainer.innerHTML = "";
         const state = AppState.get();
+        if (typeof updateStreakUI === "function") updateStreakUI();
 
         BLOCS_CURS.forEach(block => {
           const blockEl = document.createElement("section");
@@ -650,24 +820,35 @@
 
           block.chapterIds.forEach(id => {
             const chap = CAPITOLS_DATA[id];
-            const isCompleted = state.completedChapters.includes(id);
-            const isUnlocked = state.unlockedChapters.includes(id) || chap.playable;
+            const isCompleted = AppState.isCompleted(id);
+            const isUnlocked = AppState.isUnlocked(id);
+            const nextTargetId = AppState.getNextPlayableChapter();
+            const isNextTarget = isUnlocked && !isCompleted && (id === nextTargetId);
 
             const card = document.createElement("button");
             card.type = "button";
-            card.className = `dash-card ${isCompleted ? "done" : ""} ${isUnlocked ? "" : "locked"}`;
+            card.className = `dash-card ${isCompleted ? "done" : ""} ${isUnlocked ? "" : "locked"} ${isNextTarget ? "active-cur" : ""}`;
             
             let tagHtml = "";
+            let numContent = isCompleted ? "✓" : (isUnlocked ? chap.num : "🔒");
+            let metaAction = "";
+
             if (isCompleted) {
               tagHtml = `<span class="dash-status-tag tag-done">✓ Completat</span>`;
-            } else if (chap.playable) {
+              metaAction = `<span style="margin-left:auto; font-weight:700; color:var(--teal);">Rejugar ↺</span>`;
+            } else if (isNextTarget) {
+              tagHtml = `<span class="dash-status-tag tag-cur">🎯 El teu repte</span>`;
+              metaAction = `<span style="margin-left:auto; font-weight:800; color:var(--teal);">Començar ara →</span>`;
+            } else if (isUnlocked) {
               tagHtml = `<span class="dash-status-tag ${chap.tagClass}">${chap.statusText}</span>`;
+              metaAction = `<span style="margin-left:auto; font-weight:700;">Començar →</span>`;
             } else {
-              tagHtml = `<span class="dash-status-tag tag-pend">${chap.statusText}</span>`;
+              tagHtml = `<span class="dash-status-tag tag-locked">🔒 Bloquejat</span>`;
+              metaAction = `<span style="margin-left:auto; font-size:12px; color:var(--mut);">Completa el Capítol ${id - 1}</span>`;
             }
 
             card.innerHTML = `
-              <div class="dash-num">${isCompleted ? "✓" : chap.num}</div>
+              <div class="dash-num">${numContent}</div>
               <div class="dash-info">
                 <div class="dash-card-top">
                   <h3 class="dash-card-title">${chap.title}</h3>
@@ -676,16 +857,18 @@
                 <p class="dash-card-desc">${chap.desc}</p>
                 <div class="dash-card-meta">
                   <span>⏱ ${chap.duration}</span>
-                  ${chap.playable ? `<span style="margin-left:auto; font-weight:700;">${isCompleted ? "Rejugar ↺" : "Començar →"}</span>` : ""}
+                  ${metaAction}
                 </div>
               </div>
             `;
 
             card.onclick = () => {
-              if (chap.playable) {
+              if (isUnlocked) {
                 window.loadChapter(chap.id);
               } else {
-                alert(`El ${chap.title} està en fase de redacció i s'activarà en la propera actualització.`);
+                const prevChap = CAPITOLS_DATA[id - 1];
+                const prevTitle = prevChap ? prevChap.title : `Capítol ${id - 1}`;
+                showLockedToast(id, prevTitle);
               }
             };
 
@@ -705,6 +888,13 @@
         const hash = window.location.hash || "#welcome";
         if (hash.startsWith("#chapter-")) {
           const id = Number(hash.replace("#chapter-", ""));
+          if (!AppState.isUnlocked(id)) {
+            const prevChap = CAPITOLS_DATA[id - 1];
+            const prevTitle = prevChap ? prevChap.title : `Capítol ${id - 1}`;
+            window.location.hash = "#dashboard";
+            showLockedToast(id, prevTitle);
+            return;
+          }
           if (viewWelcome) viewWelcome.classList.remove("active");
           viewDash.classList.remove("active");
           viewPlayer.classList.add("active");
@@ -990,6 +1180,74 @@ PRINCIPI MESTRE: Els diners serveixen per comprar la teva tranquil·litat i inde
           alert("✓ Curs reiniciat amb èxit! Comences de nou amb 100,00 € al moneder.");
         }
       };
+
+      // ======================================================================
+      // PWA: SERVICE WORKER I INSTAL·LACIÓ A LA PANTALLA D'INICI
+      // ======================================================================
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("sw.js").catch(err => {
+            console.warn("Service Worker no s'ha pogut registrar:", err);
+          });
+        });
+      }
+
+      let deferredInstallPrompt = null;
+      const isIos = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+      const isStandalone = window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+
+      const pwaBtns = document.querySelectorAll(".pwa-install-btn");
+      const pwaDashBox = document.getElementById("dash-pwa-box");
+
+      function updatePwaUI() {
+        if (isStandalone) {
+          pwaBtns.forEach(btn => btn.classList.add("hide"));
+          if (pwaDashBox) pwaDashBox.classList.add("hide");
+          return;
+        }
+
+        if (deferredInstallPrompt || isIos) {
+          pwaBtns.forEach(btn => btn.classList.remove("hide"));
+          if (pwaDashBox) pwaDashBox.classList.remove("hide");
+        }
+      }
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+        updatePwaUI();
+      });
+
+      window.addEventListener("appinstalled", () => {
+        deferredInstallPrompt = null;
+        updatePwaUI();
+        if (typeof SoundFX !== "undefined" && SoundFX.playCelebration) {
+          SoundFX.playCelebration();
+        }
+      });
+
+      function handlePwaInstall() {
+        if (deferredInstallPrompt) {
+          deferredInstallPrompt.prompt();
+          deferredInstallPrompt.userChoice.then(choice => {
+            if (choice.outcome === "accepted") {
+              deferredInstallPrompt = null;
+              updatePwaUI();
+            }
+          });
+        } else if (isIos) {
+          alert("📲 Per instal·lar ShowMeTheMoney a l'iPhone o iPad:\n\n1. Toca el botó 'Compartir' de Safari (el quadrat amb la fletxa ⎋ a baix al centre).\n2. Selecciona 'Afegeix a la pantalla d'inici' (+).\n\nJa tindràs l'aplicació instal·lada com si fos una app nativa i funcionarà fins i tot sense connexió!");
+        } else {
+          alert("Per instal·lar aquesta app, obre el menú d'opcions del teu navegador (els tres punts ⋮) i selecciona 'Instal·lar aplicació' o 'Afegeix a la pantalla d'inici'.");
+        }
+        if (typeof SoundFX !== "undefined" && SoundFX.playClick) SoundFX.playClick();
+      }
+
+      document.querySelectorAll(".pwa-install-btn").forEach(btn => {
+        btn.onclick = handlePwaInstall;
+      });
+
+      updatePwaUI();
 
       // Inicialitzar vista segons hash actual
       route();

@@ -1,0 +1,17 @@
+{
+  "name": "show-me-the-money",
+  "version": "1.0.0",
+  "description": "ShowMeTheMoney · Curs de Finances per a Joves (16–18 anys)",
+  "scripts": {
+    "sync-md": "node scripts/sync-md.js",
+    "check": "node -c js/state.js js/sound.js js/colla.js js/engine.js js/data/capitols-index.js js/data/capitol*.js sw.js"
+  },
+  "keywords": [
+    "finances",
+    "educacio",
+    "joves",
+    "spa"
+  ],
+  "author": "garriga-ia",
+  "license": "MIT"
+}

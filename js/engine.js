@@ -220,22 +220,47 @@ const ChatEngine = {
       ? `<div class="rewards-row"><span class="reward-pill" style="color:var(--teal);">+${savingsGain.toFixed(2)} € guardats al coixí</span></div>`
       : `<div class="rewards-row"><span class="reward-pill" style="color:var(--teal);">✓ Capítol completat</span></div>`;
 
+    const streakInfo = (typeof AppState !== "undefined" && AppState.getStreak) ? AppState.getStreak() : { count: 1 };
+    const hasNext = nextChapterId && Number(nextChapterId) <= 12;
+
+    const unlockHtml = hasNext
+      ? `<div class="rewards-row"><span class="reward-pill" style="color:#e6c25a; background:rgba(230,194,90,0.12); border:1px solid rgba(230,194,90,0.3);">🔓 Capítol ${nextChapterId} desbloquejat!</span></div>`
+      : `<div class="rewards-row"><span class="reward-pill" style="color:#e6c25a; background:rgba(230,194,90,0.12); border:1px solid rgba(230,194,90,0.3);">🎓 Curs completat al 100%!</span></div>`;
+
+    const streakHtml = `
+      <div class="streak-celebration-box">
+        <span class="streak-flame-anim">🔥</span>
+        <div class="streak-info-text">
+          <div class="streak-heading">Ratxa de <b>${streakInfo.count} ${streakInfo.count === 1 ? 'dia seguit' : 'dies seguits'}</b>!</div>
+          <div class="streak-sub">Has assolit el teu repte financer d'avui. Torna demà per mantenir viva la flama!</div>
+        </div>
+      </div>
+    `;
+
     card.innerHTML = `
       <div class="trophy-badge">🏆</div>
       <div class="celebration-title">${title}</div>
       <div class="celebration-sub">${subtitle}</div>
       ${rewardsHtml}
-      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-        <button class="btn gold" id="btn-next-chap">Següent capítol: Capítol ${nextChapterId} →</button>
-        <button class="btn ghost" id="btn-back-hub">Tornar a l'índex</button>
+      ${unlockHtml}
+      ${streakHtml}
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px;">
+        ${hasNext ? `<button class="btn gold" id="btn-next-chap">Següent: Capítol ${nextChapterId} →</button>` : ""}
+        <button class="btn ghost" id="btn-back-hub">Tornar al Tauler</button>
       </div>
     `;
 
     this.embedCard(card);
 
-    card.querySelector("#btn-next-chap").onclick = () => {
-      if (typeof onNext === "function") onNext();
-    };
+    if (hasNext) {
+      const nextBtn = card.querySelector("#btn-next-chap");
+      if (nextBtn) {
+        nextBtn.onclick = () => {
+          if (typeof onNext === "function") onNext();
+          else if (window.loadChapter) window.loadChapter(nextChapterId);
+        };
+      }
+    }
     card.querySelector("#btn-back-hub").onclick = () => {
       window.location.hash = "#dashboard";
     };

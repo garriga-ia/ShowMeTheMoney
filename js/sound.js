@@ -147,6 +147,54 @@ const SoundFX = {
       osc.start(now);
       osc.stop(now + 0.03);
     } catch (e) {}
+  },
+
+  /**
+   * So de bloqueig / candau tancat (dos cops greus: "toc-toc")
+   */
+  playLock() {
+    if (!this.isEnabled()) return;
+    try {
+      const ctx = this.initAudio();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      [0, 0.08].forEach(start => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "square";
+        osc.frequency.setValueAtTime(140, now + start);
+        gain.gain.setValueAtTime(0.06, now + start);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + start + 0.05);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + start);
+        osc.stop(now + start + 0.05);
+      });
+    } catch (e) {}
+  },
+
+  /**
+   * So d'increment de ratxa 🔥 (arpegi ascendent vibrant)
+   */
+  playStreak() {
+    if (!this.isEnabled()) return;
+    try {
+      const ctx = this.initAudio();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, now + i * 0.07);
+        gain.gain.setValueAtTime(0.10, now + i * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 0.18);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.07);
+        osc.stop(now + i * 0.07 + 0.18);
+      });
+    } catch (e) {}
   }
 };
 
