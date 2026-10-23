@@ -3,7 +3,7 @@
  * Permet instal·lar l'aplicació com a nativa i funcionar 100% offline sense connexió.
  */
 
-const CACHE_NAME = 'smtm-v1.0.10';
+const CACHE_NAME = 'smtm-v1.0.11';
 
 const PRECACHE_ASSETS = [
   './',
@@ -36,6 +36,7 @@ const PRECACHE_ASSETS = [
   'img/icon.svg',
   'img/og-bona.png',
   'img/og-whatsapp.jpg',
+  'img/og-whatsapp-v2.jpg',
   'img/og-show-me-the-money.png',
   'img/avatars/marc.jpg',
   'img/avatars/nil.jpg',
