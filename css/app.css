@@ -679,20 +679,31 @@ body:not(.in-chapter) .nav-left {
 }
 
 .back-to-hub-btn {
-  background: transparent;
-  border: none;
-  color: var(--mut);
-  font-size: 13px;
-  font-weight: 600;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  color: var(--teal);
+  font-size: calc(14.5px * var(--font-scale, 1));
+  font-weight: 800;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 0;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .back-to-hub-btn:hover {
+  background: var(--card-hover);
+  border-color: var(--teal);
   color: var(--teal);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(47, 230, 167, 0.18);
+}
+
+.back-to-hub-btn:active {
+  transform: scale(0.97);
 }
 
 .speed-toggle-group {
