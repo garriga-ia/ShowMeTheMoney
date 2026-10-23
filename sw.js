@@ -3,7 +3,7 @@
  * Permet instal·lar l'aplicació com a nativa i funcionar 100% offline sense connexió.
  */
 
-const CACHE_NAME = 'smtm-v1.0.8';
+const CACHE_NAME = 'smtm-v1.0.9';
 
 const PRECACHE_ASSETS = [
   './',
