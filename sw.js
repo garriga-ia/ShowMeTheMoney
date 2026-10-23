@@ -3,7 +3,7 @@
  * Permet instal·lar l'aplicació com a nativa i funcionar 100% offline sense connexió.
  */
 
-const CACHE_NAME = 'smtm-v1.0.7';
+const CACHE_NAME = 'smtm-v1.0.8';
 
 const PRECACHE_ASSETS = [
   './',
@@ -34,6 +34,7 @@ const PRECACHE_ASSETS = [
   'img/icon-maskable.png',
   'img/apple-touch-icon.png',
   'img/icon.svg',
+  'img/og-bona.png',
   'img/og-show-me-the-money.png',
   'img/avatars/marc.jpg',
   'img/avatars/nil.jpg',
