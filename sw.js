@@ -35,6 +35,7 @@ const PRECACHE_ASSETS = [
   'img/apple-touch-icon.png',
   'img/icon.svg',
   'img/og-bona.png',
+  'img/og-whatsapp.jpg',
   'img/og-show-me-the-money.png',
   'img/avatars/marc.jpg',
   'img/avatars/nil.jpg',
