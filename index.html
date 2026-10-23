@@ -514,6 +514,9 @@
       const blocksContainer = document.getElementById("course-blocks-container");
       const collaList = document.getElementById("colla-avatars-list");
       const collaWelcomeList = document.getElementById("colla-welcome-avatars");
+      const btnToggleNotif = document.getElementById("btn-toggle-notif");
+      const notifStatusTitle = document.getElementById("notif-status-title");
+      const notifStatusSub = document.getElementById("notif-status-sub");
 
       let currentWalletVal = AppState.get().virtualSavings || 0;
       statWallet.textContent = currentWalletVal.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
@@ -841,62 +844,64 @@
 
           const listEl = blockEl.querySelector(`#block-list-${block.id}`);
 
-          block.chapterIds.forEach(id => {
-            const chap = CAPITOLS_DATA[id];
-            const isCompleted = AppState.isCompleted(id);
-            const isUnlocked = AppState.isUnlocked(id);
-            const nextTargetId = AppState.getNextPlayableChapter();
-            const isNextTarget = isUnlocked && !isCompleted && (id === nextTargetId);
+          if (listEl) {
+            block.chapterIds.forEach(id => {
+              const chap = CAPITOLS_DATA[id];
+              const isCompleted = AppState.isCompleted(id);
+              const isUnlocked = AppState.isUnlocked(id);
+              const nextTargetId = AppState.getNextPlayableChapter();
+              const isNextTarget = isUnlocked && !isCompleted && (id === nextTargetId);
 
-            const card = document.createElement("button");
-            card.type = "button";
-            card.className = `dash-card ${isCompleted ? "done" : ""} ${isUnlocked ? "" : "locked"} ${isNextTarget ? "active-cur" : ""}`;
-            
-            let tagHtml = "";
-            let numContent = isCompleted ? "✓" : (isUnlocked ? chap.num : "🔒");
-            let metaAction = "";
+              const card = document.createElement("button");
+              card.type = "button";
+              card.className = `dash-card ${isCompleted ? "done" : ""} ${isUnlocked ? "" : "locked"} ${isNextTarget ? "active-cur" : ""}`;
+              
+              let tagHtml = "";
+              let numContent = isCompleted ? "✓" : (isUnlocked ? chap.num : "🔒");
+              let metaAction = "";
 
-            if (isCompleted) {
-              tagHtml = `<span class="dash-status-tag tag-done">✓ Completat</span>`;
-              metaAction = `<span style="margin-left:auto; font-weight:700; color:var(--teal);">Rejugar ↺</span>`;
-            } else if (isNextTarget) {
-              tagHtml = `<span class="dash-status-tag tag-cur">🎯 El teu repte</span>`;
-              metaAction = `<span style="margin-left:auto; font-weight:800; color:var(--teal);">Començar ara →</span>`;
-            } else if (isUnlocked) {
-              tagHtml = `<span class="dash-status-tag ${chap.tagClass}">${chap.statusText}</span>`;
-              metaAction = `<span style="margin-left:auto; font-weight:700;">Començar →</span>`;
-            } else {
-              tagHtml = `<span class="dash-status-tag tag-locked">🔒 Bloquejat</span>`;
-              metaAction = `<span style="margin-left:auto; font-size:12px; color:var(--mut);">Completa el Capítol ${id - 1}</span>`;
-            }
-
-            card.innerHTML = `
-              <div class="dash-num">${numContent}</div>
-              <div class="dash-info">
-                <div class="dash-card-top">
-                  <h3 class="dash-card-title">${chap.title}</h3>
-                  ${tagHtml}
-                </div>
-                <p class="dash-card-desc">${chap.desc}</p>
-                <div class="dash-card-meta">
-                  <span>⏱ ${chap.duration}</span>
-                  ${metaAction}
-                </div>
-              </div>
-            `;
-
-            card.onclick = () => {
-              if (isUnlocked) {
-                window.loadChapter(chap.id);
+              if (isCompleted) {
+                tagHtml = `<span class="dash-status-tag tag-done">✓ Completat</span>`;
+                metaAction = `<span style="margin-left:auto; font-weight:700; color:var(--teal);">Rejugar ↺</span>`;
+              } else if (isNextTarget) {
+                tagHtml = `<span class="dash-status-tag tag-cur">🎯 El teu repte</span>`;
+                metaAction = `<span style="margin-left:auto; font-weight:800; color:var(--teal);">Començar ara →</span>`;
+              } else if (isUnlocked) {
+                tagHtml = `<span class="dash-status-tag ${chap.tagClass}">${chap.statusText}</span>`;
+                metaAction = `<span style="margin-left:auto; font-weight:700;">Començar →</span>`;
               } else {
-                const prevChap = CAPITOLS_DATA[id - 1];
-                const prevTitle = prevChap ? prevChap.title : `Capítol ${id - 1}`;
-                showLockedToast(id, prevTitle);
+                tagHtml = `<span class="dash-status-tag tag-locked">🔒 Bloquejat</span>`;
+                metaAction = `<span style="margin-left:auto; font-size:12px; color:var(--mut);">Completa el Capítol ${id - 1}</span>`;
               }
-            };
 
-            listEl.appendChild(card);
-          });
+              card.innerHTML = `
+                <div class="dash-num">${numContent}</div>
+                <div class="dash-info">
+                  <div class="dash-card-top">
+                    <h3 class="dash-card-title">${chap.title}</h3>
+                    ${tagHtml}
+                  </div>
+                  <p class="dash-card-desc">${chap.desc}</p>
+                  <div class="dash-card-meta">
+                    <span>⏱ ${chap.duration}</span>
+                    ${metaAction}
+                  </div>
+                </div>
+              `;
+
+              card.onclick = () => {
+                if (isUnlocked) {
+                  window.loadChapter(chap.id);
+                } else {
+                  const prevChap = CAPITOLS_DATA[id - 1];
+                  const prevTitle = prevChap ? prevChap.title : `Capítol ${id - 1}`;
+                  showLockedToast(id, prevTitle);
+                }
+              };
+
+              listEl.appendChild(card);
+            });
+          }
 
           blocksContainer.appendChild(blockEl);
         });
@@ -1018,9 +1023,12 @@
         };
       }
 
-      document.getElementById("btn-back-hub-top").onclick = () => {
-        window.location.hash = "#dashboard";
-      };
+      const btnBackHubTop = document.getElementById("btn-back-hub-top");
+      if (btnBackHubTop) {
+        btnBackHubTop.onclick = () => {
+          window.location.hash = "#dashboard";
+        };
+      }
       if (btnHomeBrand) {
         btnHomeBrand.onclick = () => {
           window.location.hash = "#welcome";
@@ -1198,14 +1206,17 @@ PRINCIPI MESTRE: Els diners serveixen per comprar la teva tranquil·litat i inde
       }
 
       // Botó de reinici
-      document.getElementById("btn-reset-app").onclick = () => {
-        if (confirm("Vols reiniciar totes les dades, les decisions i tornar al saldo inicial de 100,00 €?")) {
-          AppState.reset();
-          renderDashboard();
-          if (typeof SoundFX !== "undefined") SoundFX.playClick();
-          alert("✓ Curs reiniciat amb èxit! Comences de nou amb 100,00 € al moneder.");
-        }
-      };
+      const btnResetApp = document.getElementById("btn-reset-app");
+      if (btnResetApp) {
+        btnResetApp.onclick = () => {
+          if (confirm("Vols reiniciar totes les dades, les decisions i tornar al saldo inicial de 100,00 €?")) {
+            AppState.reset();
+            renderDashboard();
+            if (typeof SoundFX !== "undefined") SoundFX.playClick();
+            alert("✓ Curs reiniciat amb èxit! Comences de nou amb 100,00 € al moneder.");
+          }
+        };
+      }
 
       // ======================================================================
       // PWA: SERVICE WORKER I INSTAL·LACIÓ A LA PANTALLA D'INICI
@@ -1278,10 +1289,6 @@ PRINCIPI MESTRE: Els diners serveixen per comprar la teva tranquil·litat i inde
       // ======================================================================
       // NOTIFICACIONS LOCALS DIÀRIES DE RATXA (20:00 H)
       // ======================================================================
-      const btnToggleNotif = document.getElementById("btn-toggle-notif");
-      const notifStatusTitle = document.getElementById("notif-status-title");
-      const notifStatusSub = document.getElementById("notif-status-sub");
-
       function updateNotifUI() {
         const isNotifOn = AppState.get().settings.notifications === true;
         const hasPermission = "Notification" in window && Notification.permission === "granted";
